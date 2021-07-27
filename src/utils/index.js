@@ -17,6 +17,16 @@ export const getLoginUrl = () =>
   )}`;
 
 /**
+ * Generate Business Login URL
+ */
+export const getBusinessLoginUrl = () =>
+  `${
+    config.URL.AUTH
+  }?regSource=tcBusiness&mode=login&retUrl=${encodeURIComponent(
+    window.location.href.match(/[^?]*/)[0]
+  )}`;
+
+/**
  * Logout user from Topcoder
  */
 export const logout = () => {
@@ -29,4 +39,11 @@ export const logout = () => {
  */
 export const login = () => {
   window.location = getLoginUrl();
+};
+
+/**
+ * Forward user to business login page
+ */
+export const businessLogin = () => {
+  window.location = getBusinessLoginUrl();
 };
