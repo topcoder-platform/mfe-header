@@ -22,7 +22,7 @@ export const getLoginUrl = () =>
 export const getBusinessLoginUrl = () =>
   `${
     config.URL.AUTH
-  }?regSource=tcBusiness&mode=login&retUrl=${encodeURIComponent(
+  }?regSource=taasApp&mode=login&retUrl=${encodeURIComponent(
     window.location.href.match(/[^?]*/)[0]
   )}`;
 
