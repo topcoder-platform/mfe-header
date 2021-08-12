@@ -23,7 +23,6 @@ export const NOTIFICATIONS_PENDING = "NOTIFICATIONS_PENDING";
 export const MARK_NOTIFICATIONS_READ = "MARK_NOTIFICATIONS_READ";
 export const SET_NOTIFICATION_PLATFORM = "SET_NOTIFICATION_PLATFORM";
 export const RESET_NOTIFICATIONS = "RESET_NOTIFICATIONS";
-export const RESET_COMMUNITY_NOTIFICATIONS = "RESET_COMMUNITY_NOTIFICATIONS";
 
 /*
  * Project member role
@@ -76,7 +75,7 @@ export const NOTIFICATIONS_LIMIT = 1000;
 export const PLATFORM = {
   CONNECT: "connect",
   COMMUNITY: "community",
-  BOTH: "connect+community",
+  TAAS: "taas",
 };
 
 // Notifications event types
@@ -141,6 +140,11 @@ export const EVENT_TYPE = {
     COMPLETED: "challenge.notification.completed",
   },
   BROADCAST: "admin.notification.broadcast",
+  TAAS: {
+    POST_INTERVIEW_ACTION_REQUIRED: 'taas.notification.post-interview-action-required',
+    RESOURCE_BOOKING_EXPIRATION: 'taas.notification.resource-booking-expiration',
+    RESOURCE_BOOKING_PLACED: 'taas.notification.resource-booking-placed',
+  },
 };
 
 export const NOTIFICATION_TYPE = {
@@ -152,6 +156,7 @@ export const NOTIFICATION_TYPE = {
   MEMBER_ADDED: "member-added",
   CHALLENGE: "challenge",
   BROADCAST: "broadcast",
+  TAAS: "taas",
 };
 
 /*
@@ -169,6 +174,8 @@ export const GOTO = {
   PHASE: `${config.URL.CONNECT_DOMAIN}/projects/{{projectId}}/plan#phase-{{phaseId}}`,
   TOPCODER_TEAM: `${config.URL.CONNECT_DOMAIN}/projects/{{projectId}}#manageTopcoderTeam`,
   CHALLENGE: `${config.URL.COMMUNITY_DOMAIN}/challenges/{{id}}`,
+  TAAS_CANDIDATES_INTERVIEWS: `${config.URL.TAAS_APP}/{{projectId}}/positions/{{jobId}}/candidates/interviews`,
+  TAAS_PROJECT: `${config.URL.TAAS_APP}/{{projectId}}`
 };
 
 // each notification can be displayed differently depend on WHO see them
@@ -1226,6 +1233,8 @@ export const NOTIFICATIONS = [
     ],
   },
 
+  /// Community notification rules
+
   {
     eventType: EVENT_TYPE.CHALLENGE.ACTIVE,
     type: NOTIFICATION_TYPE.CHALLENGE,
@@ -1256,6 +1265,47 @@ export const NOTIFICATIONS = [
         shouldBundle: false,
         goTo: GOTO.CHALLENGE,
       },
+    ],
+  },
+
+  /// TaaS notification rules
+
+  {
+    version: 1,
+    eventType: EVENT_TYPE.TAAS.POST_INTERVIEW_ACTION_REQUIRED,
+    type: NOTIFICATION_TYPE.TAAS,
+    rules: [
+      {
+        text: "Candidate action required for <strong>{{userHandle}}</strong> in job <strong>{{jobTitle}}</strong> of the team <strong>{{teamName}}</strong>",
+        shouldBundle: false,
+        goTo: GOTO.TAAS_CANDIDATES_INTERVIEWS,
+      }
+    ],
+  },
+
+  {
+    version: 1,
+    eventType: EVENT_TYPE.TAAS.RESOURCE_BOOKING_EXPIRATION,
+    type: NOTIFICATION_TYPE.TAAS,
+    rules: [
+      {
+        text: "{{numOfExpiringResourceBookings}} resource booking{{s}} {{be}} expiring in the team <strong>{{teamName}}</strong>",
+        shouldBundle: false,
+        goTo: GOTO.TAAS_PROJECT,
+      }
+    ],
+  },
+
+  {
+    version: 1,
+    eventType: EVENT_TYPE.TAAS.RESOURCE_BOOKING_PLACED,
+    type: NOTIFICATION_TYPE.TAAS,
+    rules: [
+      {
+        text: "Resource <strong>{{userHandle}}</strong> is placed for the job <strong>{{jobTitle}}</strong> of the team <strong>{{teamName}}</strong>",
+        shouldBundle: false,
+        goTo: GOTO.TAAS_PROJECT,
+      }
     ],
   },
 ];

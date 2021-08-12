@@ -8,7 +8,7 @@ import Bell from "../../../assets/icons/bell.svg";
 
 const NotificationsEmpty = ({
   children,
-  message = "Good job! You�re all caught up",
+  message = "Good job! You’re all caught up",
 }) => (
   <div className="notifications-empty">
     <div className="icon">

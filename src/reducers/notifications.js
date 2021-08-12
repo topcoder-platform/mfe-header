@@ -20,7 +20,6 @@ import {
   SET_NOTIFICATION_PLATFORM,
   PLATFORM,
   RESET_NOTIFICATIONS,
-  RESET_COMMUNITY_NOTIFICATIONS,
 } from "../constants/notifications";
 import _ from "lodash";
 import { getActiveAndBroadcastNotifications } from "../utils/notifications";
@@ -266,14 +265,10 @@ export default (state = initialState, action) => {
     case RESET_NOTIFICATIONS:
       return {
         ...state,
+        filterBy: "",
         notifications: [],
-        sources: [],
-      };
-
-    case RESET_COMMUNITY_NOTIFICATIONS:
-      return {
-        ...state,
         communityNotifications: [],
+        sources: [],
         communitySources: [],
       };
 
