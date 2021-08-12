@@ -319,6 +319,12 @@ const getNotificationRule = (notification) => {
         );
     }
 
+    if (notification.contents.textIsPlural != null) {
+      match =
+        match &&
+        notification.contents.textIsPlural === _notificationRule.textIsPlural;
+    }
+
     return match;
   });
 
@@ -572,6 +578,17 @@ export const preRenderNotifications = (notifications) => {
 
 // --- TaaS --- //
 
+const prepareTaaSNotificationContents = (eventType, contents) => {
+  if (eventType === EVENT_TYPE.TAAS.RESOURCE_BOOKING_EXPIRATION) {
+    return {
+      ...contents,
+      textIsPlural: contents.numOfExpiringResourceBookings > 1,
+    };
+  }
+
+  return contents;
+};
+
 export const prepareTaaSNotifications = (rawNotifications) => {
   const notifications = rawNotifications.map((rawNotification) => ({
     id: `${rawNotification.id}`,
@@ -585,7 +602,10 @@ export const prepareTaaSNotifications = (rawNotifications) => {
     date: rawNotification.createdAt,
     isRead: rawNotification.read,
     seen: rawNotification.seen,
-    contents: rawNotification.contents,
+    contents: prepareTaaSNotificationContents(
+      rawNotification.type,
+      rawNotification.contents
+    ),
     version: rawNotification.version,
   }));
 

@@ -1291,7 +1291,14 @@ export const NOTIFICATIONS = [
     type: NOTIFICATION_TYPE.TAAS,
     rules: [
       {
-        text: "{{numOfExpiringResourceBookings}} resource booking{{s}} {{be}} expiring in the team <strong>{{teamName}}</strong>",
+        textIsPlural: true,
+        text: "{{numOfExpiringResourceBookings}} resource bookings are expiring in the team <strong>{{teamName}}</strong>",
+        shouldBundle: false,
+        goTo: GOTO.TAAS_PROJECT,
+      },
+      {
+        textIsPlural: false,
+        text: "{{numOfExpiringResourceBookings}} resource booking is expiring in the team <strong>{{teamName}}</strong>",
         shouldBundle: false,
         goTo: GOTO.TAAS_PROJECT,
       },
