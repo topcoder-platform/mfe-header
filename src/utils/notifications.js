@@ -352,6 +352,7 @@ const isNotificationRuleEqual = (rule1, rule2) => {
     "projectRole",
     "topcoderRole",
     "originator",
+    "textIsPlural",
   ];
   const essentialRule1 = _.pick(rule1, ESSENTIAL_RULE_PROPERTIES);
   const essentialRule2 = _.pick(rule2, ESSENTIAL_RULE_PROPERTIES);
