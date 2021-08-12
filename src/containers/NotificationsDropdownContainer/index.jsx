@@ -157,7 +157,9 @@ const NotificationsDropdownContainerView = (props) => {
   if (
     (!isLoading && !initialized && platform == PLATFORM.CONNECT) ||
     (!isLoading && !initialized && platform == PLATFORM.TAAS) ||
-    (!isCommunityLoading && !communityInitialized && platform == PLATFORM.COMMUNITY)
+    (!isCommunityLoading &&
+      !communityInitialized &&
+      platform == PLATFORM.COMMUNITY)
   ) {
     notificationsEmpty = (
       <NotificationsEmpty message="Fail to load notifications">
@@ -545,10 +547,7 @@ class NotificationsDropdownContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {
-      platform: oldPlatform,
-      resetNotifications,
-    } = this.props;
+    const { platform: oldPlatform, resetNotifications } = this.props;
     const { platform } = nextProps;
 
     if (platform !== oldPlatform) {

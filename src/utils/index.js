@@ -20,9 +20,7 @@ export const getLoginUrl = () =>
  * Generate Business Login URL
  */
 export const getBusinessLoginUrl = () =>
-  `${
-    config.URL.AUTH
-  }?regSource=taasApp&mode=login&retUrl=${encodeURIComponent(
+  `${config.URL.AUTH}?regSource=taasApp&mode=login&retUrl=${encodeURIComponent(
     window.location.href.match(/[^?]*/)[0]
   )}`;
 

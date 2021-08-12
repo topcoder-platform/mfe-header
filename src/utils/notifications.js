@@ -609,7 +609,7 @@ export const prepareTaaSNotifications = (rawNotifications) => {
   });
 
   return notifications;
-}
+};
 
 // --- Community --- //
 

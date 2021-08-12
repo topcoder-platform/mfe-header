@@ -14,6 +14,9 @@ module.exports = (webpackConfigEnv, options) => {
     disableHtmlGeneration: true,
   });
 
+  const unusedFilesWebpackPlugin = defaultConfig.plugins.find(p => p.constructor.name === "UnusedFilesWebpackPlugin");
+  unusedFilesWebpackPlugin.globOptions.ignore.push("**/assets/icons/*.svg", "**/__mocks__/**");
+
   let cssLocalIdent;
   if (options.mode === "production") {
     cssLocalIdent = "[hash:base64:6]";

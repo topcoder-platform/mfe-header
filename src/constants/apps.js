@@ -1,13 +1,13 @@
 /**
  * Config for the All Apps menu.
  */
-import appDocumentationIcon from '../assets/images/learn.svg';
-import appTaasIcon from '../assets/images/integrations.svg';
-import appTaasAdminIcon from '../assets/images/taas-admin.png';
-import myteamsIcon from '../assets/images/my-teams.svg';
-import myteamsGreenIcon from '../assets/images/my-teams-green.svg';
-import createTeamIcon from '../assets/images/create-team.svg';
-import createTeamGreenIcon from '../assets/images/create-team-green.svg';
+import appDocumentationIcon from "../assets/images/learn.svg";
+import appTaasIcon from "../assets/images/integrations.svg";
+import appTaasAdminIcon from "../assets/images/taas-admin.png";
+import myteamsIcon from "../assets/images/my-teams.svg";
+import myteamsGreenIcon from "../assets/images/my-teams-green.svg";
+import createTeamIcon from "../assets/images/create-team.svg";
+import createTeamGreenIcon from "../assets/images/create-team-green.svg";
 import earnIcon from "../assets/images/earn.svg";
 
 /**
@@ -15,23 +15,23 @@ import earnIcon from "../assets/images/earn.svg";
  */
 export const APP_CATEGORIES = [
   {
-    category: 'Manage',
+    category: "Manage",
     apps: [
       {
-        title: 'TaaS',
+        title: "TaaS",
         icon: appTaasIcon,
-        path: '/taas',
+        path: "/taas",
         menu: [
           {
-            title: 'My Teams',
-            path: '/taas/myteams',
+            title: "My Teams",
+            path: "/taas/myteams",
             icon: myteamsIcon,
             activeIcon: myteamsGreenIcon,
             isExact: false,
           },
           {
-            title: 'Create New Team',
-            path: '/taas/createnewteam',
+            title: "Create New Team",
+            path: "/taas/createnewteam",
             icon: createTeamIcon,
             activeIcon: createTeamGreenIcon,
             isExact: false,
@@ -39,14 +39,14 @@ export const APP_CATEGORIES = [
         ],
       },
       {
-        title: 'TaaS Admin',
+        title: "TaaS Admin",
         icon: appTaasAdminIcon,
-        path: '/taas-admin',
+        path: "/taas-admin",
         menu: [],
-        roles: ["bookingmanager","administrator"],
+        roles: ["bookingmanager", "administrator"],
       },
       {
-        title: 'Documentation',
+        title: "Documentation",
         icon: appDocumentationIcon,
         path: "/model",
         menu: [],
@@ -57,7 +57,7 @@ export const APP_CATEGORIES = [
         path: "/community-admin",
         menu: [],
         roles: ["Community Admin"],
-      }
+      },
     ],
   },
   {

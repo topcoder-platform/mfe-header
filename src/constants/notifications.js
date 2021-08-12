@@ -141,9 +141,11 @@ export const EVENT_TYPE = {
   },
   BROADCAST: "admin.notification.broadcast",
   TAAS: {
-    POST_INTERVIEW_ACTION_REQUIRED: 'taas.notification.post-interview-action-required',
-    RESOURCE_BOOKING_EXPIRATION: 'taas.notification.resource-booking-expiration',
-    RESOURCE_BOOKING_PLACED: 'taas.notification.resource-booking-placed',
+    POST_INTERVIEW_ACTION_REQUIRED:
+      "taas.notification.post-interview-action-required",
+    RESOURCE_BOOKING_EXPIRATION:
+      "taas.notification.resource-booking-expiration",
+    RESOURCE_BOOKING_PLACED: "taas.notification.resource-booking-placed",
   },
 };
 
@@ -175,7 +177,7 @@ export const GOTO = {
   TOPCODER_TEAM: `${config.URL.CONNECT_DOMAIN}/projects/{{projectId}}#manageTopcoderTeam`,
   CHALLENGE: `${config.URL.COMMUNITY_DOMAIN}/challenges/{{id}}`,
   TAAS_CANDIDATES_INTERVIEWS: `${config.URL.TAAS_APP}/{{projectId}}/positions/{{jobId}}/candidates/interviews`,
-  TAAS_PROJECT: `${config.URL.TAAS_APP}/{{projectId}}`
+  TAAS_PROJECT: `${config.URL.TAAS_APP}/{{projectId}}`,
 };
 
 // each notification can be displayed differently depend on WHO see them
@@ -1279,7 +1281,7 @@ export const NOTIFICATIONS = [
         text: "Candidate action required for <strong>{{userHandle}}</strong> in job <strong>{{jobTitle}}</strong> of the team <strong>{{teamName}}</strong>",
         shouldBundle: false,
         goTo: GOTO.TAAS_CANDIDATES_INTERVIEWS,
-      }
+      },
     ],
   },
 
@@ -1292,7 +1294,7 @@ export const NOTIFICATIONS = [
         text: "{{numOfExpiringResourceBookings}} resource booking{{s}} {{be}} expiring in the team <strong>{{teamName}}</strong>",
         shouldBundle: false,
         goTo: GOTO.TAAS_PROJECT,
-      }
+      },
     ],
   },
 
@@ -1305,7 +1307,7 @@ export const NOTIFICATIONS = [
         text: "Resource <strong>{{userHandle}}</strong> is placed for the job <strong>{{jobTitle}}</strong> of the team <strong>{{teamName}}</strong>",
         shouldBundle: false,
         goTo: GOTO.TAAS_PROJECT,
-      }
+      },
     ],
   },
 ];
