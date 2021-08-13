@@ -66,14 +66,14 @@ const handlebarsFallbackHelper = (value, fallbackValue) => {
  *  ```
  *  {{pluralize count resource resources}}
  *  ```
- *  Will output `resource` if `count` equals or less than 1; otherwise `resources`
+ *  Will output `resource` if `count` equals 0 or 1; otherwise `resources`
  *
  * @param {Number} count          quantity
  * @param {String} single         noun
  * @param {String} plural         nouns
  */
 const handlebarsPluralizeHelper = (number, single, plural) => {
-  return number > 1 ? plural : single;
+  return Math.abs(number) > 1 ? plural : single;
 };
 
 // register handlebars helpers
