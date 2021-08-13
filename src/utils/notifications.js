@@ -59,9 +59,27 @@ const handlebarsFallbackHelper = (value, fallbackValue) => {
   return new Handlebars.SafeString(out);
 };
 
+/**
+ * Handlebars helper which displays single or plural noun
+ *
+ * Example:
+ *  ```
+ *  {{pluralize count resource resources}}
+ *  ```
+ *  Will output `resource` if `count` equals or less than 1; otherwise `resources`
+ *
+ * @param {Number} count          quantity
+ * @param {String} single         noun
+ * @param {String} plural         nouns
+ */
+const handlebarsPluralizeHelper = (number, single, plural) => {
+  return number > 1 ? plural : single;
+};
+
 // register handlebars helpers
 Handlebars.registerHelper("showMore", handlebarsShowMoreHelper);
 Handlebars.registerHelper("fallback", handlebarsFallbackHelper);
+Handlebars.registerHelper("pluralize", handlebarsPluralizeHelper);
 
 export const renderGoTo = (goTo, contents) => {
   let goToHandlebars = "";
@@ -319,12 +337,6 @@ const getNotificationRule = (notification) => {
         );
     }
 
-    if (notification.contents.textIsPlural != null) {
-      match =
-        match &&
-        notification.contents.textIsPlural === _notificationRule.textIsPlural;
-    }
-
     return match;
   });
 
@@ -352,7 +364,6 @@ const isNotificationRuleEqual = (rule1, rule2) => {
     "projectRole",
     "topcoderRole",
     "originator",
-    "textIsPlural",
   ];
   const essentialRule1 = _.pick(rule1, ESSENTIAL_RULE_PROPERTIES);
   const essentialRule2 = _.pick(rule2, ESSENTIAL_RULE_PROPERTIES);
@@ -579,17 +590,6 @@ export const preRenderNotifications = (notifications) => {
 
 // --- TaaS --- //
 
-const prepareTaaSNotificationContents = (eventType, contents) => {
-  if (eventType === EVENT_TYPE.TAAS.RESOURCE_BOOKING_EXPIRATION) {
-    return {
-      ...contents,
-      textIsPlural: contents.numOfExpiringResourceBookings > 1,
-    };
-  }
-
-  return contents;
-};
-
 export const prepareTaaSNotifications = (rawNotifications) => {
   const notifications = rawNotifications.map((rawNotification) => ({
     id: `${rawNotification.id}`,
@@ -603,10 +603,7 @@ export const prepareTaaSNotifications = (rawNotifications) => {
     date: rawNotification.createdAt,
     isRead: rawNotification.read,
     seen: rawNotification.seen,
-    contents: prepareTaaSNotificationContents(
-      rawNotification.type,
-      rawNotification.contents
-    ),
+    contents: rawNotification.contents,
     version: rawNotification.version,
   }));
 
