@@ -59,9 +59,27 @@ const handlebarsFallbackHelper = (value, fallbackValue) => {
   return new Handlebars.SafeString(out);
 };
 
+/**
+ * Handlebars helper which displays single or plural noun
+ *
+ * Example:
+ *  ```
+ *  {{pluralize count resource resources}}
+ *  ```
+ *  Will output `resource` if `count` equals 0 or 1; otherwise `resources`
+ *
+ * @param {Number} count          quantity
+ * @param {String} single         noun
+ * @param {String} plural         nouns
+ */
+const handlebarsPluralizeHelper = (number, single, plural) => {
+  return Math.abs(number) > 1 ? plural : single;
+};
+
 // register handlebars helpers
 Handlebars.registerHelper("showMore", handlebarsShowMoreHelper);
 Handlebars.registerHelper("fallback", handlebarsFallbackHelper);
+Handlebars.registerHelper("pluralize", handlebarsPluralizeHelper);
 
 export const renderGoTo = (goTo, contents) => {
   let goToHandlebars = "";
@@ -243,105 +261,6 @@ export const filterReadNotifications = (notifications) =>
  */
 export const filterSeenNotifications = (notifications) =>
   _.filter(notifications, { seen: false });
-
-/**
- * Filter notifications that belongs to project:projectId
- *
- * @param  {Array}  notifications list of notifications
- *
- * @param  {Number}  projectId
- *
- * @return {Array}                notifications list filtered of notifications
- */
-export const filterNotificationsByProjectId = (notifications, projectId) =>
-  _.filter(notifications, (notification) => {
-    return notification.sourceId === `${projectId}`;
-  });
-
-/**
- * Filter notifications about Topic and Post changed
- *
- * @param  {Array}  notifications list of notifications
- * @param  {RegExp} [tagRegExp]   regexp to filter notification by tags
- *
- * @return {Array}                notifications list filtered of notifications
- */
-export const filterTopicAndPostChangedNotifications = (
-  notifications,
-  tagRegExp
-) => {
-  let topicAndPostNotifications = _.filter(
-    notifications,
-    (notification) =>
-      notification.eventType === EVENT_TYPE.TOPIC.CREATED ||
-      notification.eventType === EVENT_TYPE.POST.CREATED ||
-      notification.eventType === EVENT_TYPE.POST.UPDATED ||
-      notification.eventType === EVENT_TYPE.POST.MENTION
-  );
-
-  // filter messages using `tags`
-  if (tagRegExp) {
-    topicAndPostNotifications = _.filter(
-      topicAndPostNotifications,
-      (notification) => {
-        const tags = _.get(notification, "contents.tags", []);
-
-        return _.some(tags, (tag) => tagRegExp.test(tag));
-      }
-    );
-  }
-
-  return topicAndPostNotifications;
-};
-
-/**
- * Filter notifications about Link and File changed
- *
- * @param  {Array}  notifications list of notifications
- *
- * @return {Array}                notifications list filtered of notifications
- */
-export const filterFileAndLinkChangedNotifications = (notifications) => {
-  return _.filter(
-    notifications,
-    (notification) =>
-      notification.eventType === EVENT_TYPE.PROJECT.FILE_UPLOADED ||
-      notification.eventType === EVENT_TYPE.PROJECT.LINK_CREATED
-  );
-};
-
-/**
- * Filter notification about post mentions
- * @param {Array} notifications list of notifications
- *
- * @return {Array} notifications list filtered by post mention event type
- */
-export const filterPostsMentionNotifications = (notifications) =>
-  _.filter(notifications, (notification) => {
-    return notification.eventType === EVENT_TYPE.POST.MENTION;
-  });
-
-/**
- * Filter notifications about the project
- *
- * @param  {Array}  notifications list of notifications
- *
- * @return {Array}                notifications list filtered of notifications
- */
-export const filterProjectNotifications = (notifications) =>
-  _.filter(notifications, (notification) => {
-    return (
-      notification.eventType === EVENT_TYPE.PROJECT.CREATED ||
-      notification.eventType === EVENT_TYPE.PROJECT.APPROVED ||
-      notification.eventType === EVENT_TYPE.PROJECT.PAUSED ||
-      notification.eventType === EVENT_TYPE.PROJECT.COMPLETED ||
-      notification.eventType === EVENT_TYPE.PROJECT.SPECIFICATION_MODIFIED ||
-      notification.eventType === EVENT_TYPE.PROJECT.SUBMITTED_FOR_REVIEW ||
-      notification.eventType === EVENT_TYPE.PROJECT.FILE_UPLOADED ||
-      notification.eventType === EVENT_TYPE.PROJECT.CANCELED ||
-      notification.eventType === EVENT_TYPE.PROJECT.LINK_CREATED
-    );
-  });
 
 /**
  * Limits notifications quantity per source
@@ -669,7 +588,49 @@ export const preRenderNotifications = (notifications) => {
   return preRenderedNotifications;
 };
 
-//----- //
+// --- TaaS --- //
+
+export const prepareTaaSNotifications = (rawNotifications) => {
+  const notifications = rawNotifications.map((rawNotification) => ({
+    id: `${rawNotification.id}`,
+    sourceId: rawNotification.contents.projectId
+      ? `${rawNotification.contents.projectId}`
+      : "team",
+    sourceName: rawNotification.contents.projectId
+      ? rawNotification.contents.teamName || "Team"
+      : "Global",
+    eventType: rawNotification.type,
+    date: rawNotification.createdAt,
+    isRead: rawNotification.read,
+    seen: rawNotification.seen,
+    contents: rawNotification.contents,
+    version: rawNotification.version,
+  }));
+
+  notifications.forEach((notification) => {
+    const notificationRule = getNotificationRule(notification);
+
+    if (notificationRule) {
+      notification.type = notificationRule.type;
+      if (notificationRule.goTo) {
+        notification.goto = renderGoTo(
+          notificationRule.goTo,
+          notification.contents
+        );
+      }
+      notification.rule = notificationRule;
+    } else {
+      console.warn(
+        `Cannot find notification rule for eventType '${notification.eventType}' version '${notification.version}'.`
+      );
+    }
+  });
+
+  return notifications;
+};
+
+// --- Community --- //
+
 const getCommunityNotificationRule = (notification) => {
   const notificationRule = _.find(NOTIFICATION_RULES, (_notificationRule) => {
     return _notificationRule.eventType === notification.eventType;

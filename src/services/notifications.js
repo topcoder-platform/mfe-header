@@ -5,6 +5,7 @@ import { URL } from "../../config";
 import {
   prepareNotifications,
   prepareCommunityNotifications,
+  prepareTaaSNotifications,
 } from "../utils/notifications";
 
 const logger = console;
@@ -51,6 +52,14 @@ const getNotifications = () => {
     .then((resp) => prepareNotifications(resp.data.items));
 };
 
+const getTaaSNotifications = () => {
+  return axiosInstance
+    .get(
+      `${URL.TC_NOTIFICATION_URL}/list?read=false&platform=taas&per_page=${NOTIFICATIONS_LIMIT}`
+    )
+    .then((resp) => prepareTaaSNotifications(resp.data.items));
+};
+
 const getCommunityNotifications = () => {
   return axiosInstance
     .get(
@@ -64,4 +73,5 @@ export default {
   getCommunityNotifications,
   markNotificationsRead,
   markNotificationsSeen,
+  getTaaSNotifications,
 };

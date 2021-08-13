@@ -279,7 +279,7 @@ class NotificationsContainer extends Component {
   render() {
     const { notifications, communityNotifications, ...restProps } = this.props;
     const preRenderedNotifications = preRenderNotifications(notifications);
-    const preRenderedNotifications2 = preRenderCommunityNotifications(
+    const preRenderedCommunityNotifications = preRenderCommunityNotifications(
       communityNotifications
     );
 
@@ -288,7 +288,7 @@ class NotificationsContainer extends Component {
         {...{
           ...restProps,
           notifications: preRenderedNotifications,
-          communityNotifications: preRenderedNotifications2,
+          communityNotifications: preRenderedCommunityNotifications,
         }}
       />
     );
