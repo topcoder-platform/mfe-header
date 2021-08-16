@@ -6,7 +6,7 @@ module.exports = {
   transformIgnorePatterns: ["node_modules/?!(tc-auth-lib)"],
   moduleNameMapper: {
     "\\.(css|scss)$": "identity-obj-proxy",
-    "\\.svg$": "<rootDir>/__mocks__/fileMock.js",
+    "\\.(png|eot|otf|ttf|woff|woff2|svg)$": "<rootDir>/__mocks__/fileMock.js",
   },
   setupFilesAfterEnv: [
     "../node_modules/@testing-library/jest-dom/dist/index.js",

@@ -11,6 +11,7 @@ import { TransitionGroup, Transition } from "react-transition-group";
 import {
   getNotifications,
   getCommunityNotifications,
+  getTaaSNotifications,
   toggleNotificationSeen,
   markAllNotificationsRead,
   markAllNotificationsSeen,
@@ -19,7 +20,6 @@ import {
   viewOlderNotifications,
   hideOlderNotifications,
   resetNotifications,
-  resetCommunityNotifications,
 } from "../../actions/notifications";
 import {
   splitNotificationsBySources,
@@ -70,6 +70,7 @@ const NotificationsDropdownContainerView = (props) => {
     toggleNotificationsDropdownMobile,
     toggleNotificationsDropdownWeb,
     markAllNotificationsSeen,
+    platform,
   } = props;
   if (
     (!initialized && isLoading) ||
@@ -154,8 +155,11 @@ const NotificationsDropdownContainerView = (props) => {
     </NotificationsEmpty>
   );
   if (
-    (!isLoading && !initialized) ||
-    (!isCommunityLoading && !communityInitialized)
+    (!isLoading && !initialized && platform == PLATFORM.CONNECT) ||
+    (!isLoading && !initialized && platform == PLATFORM.TAAS) ||
+    (!isCommunityLoading &&
+      !communityInitialized &&
+      platform == PLATFORM.COMMUNITY)
   ) {
     notificationsEmpty = (
       <NotificationsEmpty message="Fail to load notifications">
@@ -543,10 +547,11 @@ class NotificationsDropdownContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { platform: oldPlatform } = this.props;
+    const { platform: oldPlatform, resetNotifications } = this.props;
     const { platform } = nextProps;
 
     if (platform !== oldPlatform) {
+      resetNotifications();
       this.getPlatformNotifications(platform);
     }
   }
@@ -555,23 +560,17 @@ class NotificationsDropdownContainer extends React.Component {
     const {
       getNotifications,
       getCommunityNotifications,
+      getTaaSNotifications,
       platform,
-      resetNotifications,
-      resetCommunityNotifications,
     } = this.props;
 
     p = p || platform;
 
-    if (p === PLATFORM.BOTH) {
-      resetNotifications();
-      resetCommunityNotifications();
+    if (p === PLATFORM.CONNECT) {
       getNotifications();
-      getCommunityNotifications();
-    } else if (p === PLATFORM.CONNECT) {
-      resetCommunityNotifications();
-      getNotifications();
+    } else if (p === PLATFORM.TAAS) {
+      getTaaSNotifications();
     } else {
-      resetNotifications();
       getCommunityNotifications();
     }
   }
@@ -619,6 +618,7 @@ const mapStateToProps = ({ notifications }) => notifications;
 const mapDispatchToProps = {
   getNotifications,
   getCommunityNotifications,
+  getTaaSNotifications,
   toggleNotificationSeen,
   markAllNotificationsRead,
   markAllNotificationsSeen,
@@ -627,7 +627,6 @@ const mapDispatchToProps = {
   viewOlderNotifications,
   hideOlderNotifications,
   resetNotifications,
-  resetCommunityNotifications,
 };
 
 export default connect(

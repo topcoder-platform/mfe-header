@@ -19,7 +19,7 @@ import {
   setNotificationPlatform,
 } from "./utils/exports";
 
-import { login, logout } from "./utils";
+import { login, businessLogin, logout } from "./utils";
 import { PLATFORM } from "./constants/notifications";
 
 const lifecycles = singleSpaReact({
@@ -37,6 +37,7 @@ export const { bootstrap, mount, unmount } = lifecycles;
 // list everything we want to export for other microapps here
 export {
   login,
+  businessLogin,
   logout,
   setAppMenu,
   getAuthUserTokens,

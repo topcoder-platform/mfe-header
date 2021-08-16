@@ -19,7 +19,6 @@ import {
   NOTIFICATIONS_PENDING,
   SET_NOTIFICATION_PLATFORM,
   RESET_NOTIFICATIONS,
-  RESET_COMMUNITY_NOTIFICATIONS,
 } from "../constants/notifications";
 import notificationsService from "../services/notifications";
 import {
@@ -68,6 +67,25 @@ export const getNotifications = () => (dispatch) => {
   dispatch({ type: GET_NOTIFICATIONS_PENDING });
   notificationsService
     .getNotifications()
+    .then((notifications) => {
+      dispatch({
+        type: GET_NOTIFICATIONS_SUCCESS,
+        payload: notifications,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_NOTIFICATIONS_FAILURE,
+        payload: err,
+      });
+      console.error(`Failed to load notifications. ${err.message}`);
+    });
+};
+
+export const getTaaSNotifications = () => (dispatch) => {
+  dispatch({ type: GET_NOTIFICATIONS_PENDING });
+  notificationsService
+    .getTaaSNotifications()
     .then((notifications) => {
       dispatch({
         type: GET_NOTIFICATIONS_SUCCESS,
@@ -243,10 +261,6 @@ export const resetNotifications = () => (dispatch) => {
   dispatch({ type: RESET_NOTIFICATIONS });
 };
 
-export const resetCommunityNotifications = () => (dispatch) => {
-  dispatch({ type: RESET_COMMUNITY_NOTIFICATIONS });
-};
-
 export default {
   getNotifications,
   getCommunityNotifications,
@@ -262,5 +276,4 @@ export default {
   markNotificationsRead,
   setNotificationPlatform,
   resetNotifications,
-  resetCommunityNotifications,
 };

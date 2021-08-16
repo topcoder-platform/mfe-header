@@ -61,6 +61,7 @@ Make sure you have [Heroky CLI](https://devcenter.heroku.com/articles/heroku-cli
 This app exports functions to be imported by other microapps.
 
 - `login` - redirects to login page
+- `businessLogin` - redirects to business (i.e. customer) login page
 - `logout` - clears session storage and redirects to logout page
 - `setAppMenu` - sets sidebar menu for the app by app's `path`
 - `getAuthUserTokens` - returns a promise which resolves to object with user tokens `{ tokenV3, tokenV2 }`
@@ -95,6 +96,7 @@ For example see https://github.com/topcoder-platform/micro-frontends-react-app
    ```js
    module.exports = {
      login: () => {},
+     businessLogin: () => {},
      logout: () => {},
      setAppMenu: () => {},
      getAuthUserTokens: () => new Promise(() => {}),
@@ -121,6 +123,7 @@ For example see https://github.com/topcoder-platform/micro-frontends-angular-app
    ```js
    declare module '@topcoder/micro-frontends-navbar-app' {
      export const login: any;
+     export const businessLogin: any;
      export const logout: any;
      export const setAppMenu: any;
      export const getAuthUserTokens: any;
