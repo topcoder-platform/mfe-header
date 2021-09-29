@@ -63,7 +63,7 @@ const UserMenu = ({ profile }) => {
               <div className="user-menu-popover-content">
                 <ul className="user-menu-list">
                   <li>
-                    <a href={`/members/${profile.handle}`}>Profile</a>
+                    <a href={`/profile/${profile.handle}`}>Profile</a>
                   </li>
                   <li>
                     <a href={getLogoutUrl()} onClick={onLogoutClick}>
