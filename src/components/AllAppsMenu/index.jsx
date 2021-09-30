@@ -51,41 +51,43 @@ const AllAppsMenu = () => {
             <div className="all-apps-menu-popover-content">
               <div className="all-apps-menu-list-title">SWITCH TOOLS</div>
               <ul className="all-apps-menu-list">
-                {menu.map((appCategory) => (
-                  <Fragment>
-                    <div className="switch-category-title">
-                      <div className="menu-divider"></div>
-                      <div className="all-apps-menu-category-name">
-                        {appCategory.category}
+                {menu
+                  .filter((appCategory) => !appCategory.hidden)
+                  .map((appCategory) => (
+                    <Fragment>
+                      <div className="switch-category-title">
+                        <div className="menu-divider"></div>
+                        <div className="all-apps-menu-category-name">
+                          {appCategory.category}
+                        </div>
+                        <div className="menu-divider"></div>
                       </div>
-                      <div className="menu-divider"></div>
-                    </div>
-                    {appCategory.apps.map((app) => {
-                      // if app is roles restricted check for access
-                      if (app.roles) {
-                        // not logged-in
-                        if (!auth || !tokenData) return null;
-                        // roles in v3 token match?
-                        if (
-                          tokenData &&
-                          !intersection(app.roles, tokenData.roles).length
-                        )
-                          return null;
-                      }
-                      return (
-                        <li className="all-apps-menu-app" key={app.path}>
-                          <Link
-                            to={app.path}
-                            onClick={(e) => closeMenu(e, app)}
-                          >
-                            <img src={app.icon} alt={`${app.title} Icon`} />
-                            <span>{app.title}</span>
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </Fragment>
-                ))}
+                      {appCategory.apps.map((app) => {
+                        // if app is roles restricted check for access
+                        if (app.roles) {
+                          // not logged-in
+                          if (!auth || !tokenData) return null;
+                          // roles in v3 token match?
+                          if (
+                            tokenData &&
+                            !intersection(app.roles, tokenData.roles).length
+                          )
+                            return null;
+                        }
+                        return (
+                          <li className="all-apps-menu-app" key={app.path}>
+                            <Link
+                              to={app.path}
+                              onClick={(e) => closeMenu(e, app)}
+                            >
+                              <img src={app.icon} alt={`${app.title} Icon`} />
+                              <span>{app.title}</span>
+                            </Link>
+                          </li>
+                        );
+                      })}
+                    </Fragment>
+                  ))}
               </ul>
             </div>
           </div>

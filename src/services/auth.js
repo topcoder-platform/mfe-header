@@ -57,11 +57,11 @@ const loadProfile = (userTokenV3) => {
   if (!userTokenV3) return Promise.resolve(null);
   const user = decodeToken(userTokenV3);
   const fetcher = getFetcher(userTokenV3);
-  return fetcher(`${config.API.V3}/members/${user.handle}`, {
+  return fetcher(`${config.API.V5}/members/${user.handle}`, {
     method: "get",
   })
     .then((res) => res.json())
-    .then((res) => (res.result.status === 200 ? res.result.content : {}));
+    .then((res) => res || {});
 };
 
 configureConnector({
