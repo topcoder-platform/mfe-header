@@ -4,6 +4,7 @@
  * Shows logged-in user with user menu with options like log-out.
  */
 import React, { useState, useCallback, Fragment } from "react";
+import { Link } from "@reach/router";
 import Avatar from "../Avatar";
 import cn from "classnames";
 import OutsideClickHandler from "react-outside-click-handler";
@@ -62,6 +63,11 @@ const UserMenu = ({ profile }) => {
               <div className="user-menu-popover-arrow" />
               <div className="user-menu-popover-content">
                 <ul className="user-menu-list">
+                  <li>
+                    <Link to={`/profile/${profile.handle}`} onClick={closeMenu}>
+                      Profile
+                    </Link>
+                  </li>
                   <li>
                     <a href={getLogoutUrl()} onClick={onLogoutClick}>
                       Log Out
