@@ -16,6 +16,7 @@ import {
   enableSidebarForRoute,
   getAuthUserTokens,
   getAuthUserProfile,
+  setUserProfilePhoto,
   setNotificationPlatform,
 } from "./utils/exports";
 
@@ -42,6 +43,7 @@ export {
   setAppMenu,
   getAuthUserTokens,
   getAuthUserProfile,
+  setUserProfilePhoto,
   disableSidebarForRoute,
   enableSidebarForRoute,
   setNotificationPlatform,
