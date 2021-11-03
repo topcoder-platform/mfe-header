@@ -5,11 +5,13 @@ import React, { useState, useCallback, useMemo, useEffect } from "react";
 import _ from "lodash";
 import MainMenu from "./components/MainMenu";
 import NavBar from "./components/NavBar";
-import { Router } from "@reach/router";
+import { navigate, Router } from "@reach/router";
 import { useSelector } from "react-redux";
 import useMatchSomeRoute from "./hooks/useMatchSomeRoute";
 import NotificationsModal from "./components/NotificationsModal";
 import "./styles/main.module.scss";
+import { checkOnboarding, checkProfileCreationDate } from "./utils";
+import { getOnboardingChecklist } from "./services/auth";
 
 const App = () => {
   // all menu options
@@ -18,10 +20,14 @@ const App = () => {
   const apps = useMemo(() => _.flatMap(menu, "apps"), [menu]);
   // list of routes where we have to disabled sidebar
   const disabledRoutes = useSelector((state) => state.menu.disabledRoutes);
+  // user profile information
+  const auth = useSelector((state) => state.auth);
   // `true` is sidebar has to be disabled for the current route
   const isSideBarDisabled = useMatchSomeRoute(disabledRoutes);
   // Left sidebar collapse state
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  // hide switch tools and notification when user is onboarding
+  const [hideSwitchTools, setHideSwitchTools] = useState(false);
   // Toggle left sidebar callback
   const toggleSidebar = useCallback(() => {
     setSidebarCollapsed(!sidebarCollapsed);
@@ -43,9 +49,26 @@ const App = () => {
     }
   }, [isSideBarDisabled]);
 
+  useEffect(() => {
+    (async () => {
+      if (auth?.profile && checkProfileCreationDate(auth?.profile)) {
+        const { profile, tokenV3 } = auth;
+
+        const response = await getOnboardingChecklist(profile?.handle, tokenV3);
+        const onboardingPath = checkOnboarding(response);
+        if (onboardingPath) {
+          setHideSwitchTools(true);
+          navigate(onboardingPath);
+        } else {
+          setHideSwitchTools(false);
+        }
+      }
+    })();
+  }, [auth]);
+
   return (
     <>
-      <NavBar />
+      <NavBar hideSwitchTools={hideSwitchTools} />
       {!isSideBarDisabled && (
         <div className="main-menu-wrapper">
           <Router>
