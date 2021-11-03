@@ -12,4 +12,5 @@ module.exports = {
     V5: "https://api.topcoder-dev.com/v5",
   },
   REAUTH_OFFSET: 55, // seconds
+  PROFILE_CREATION_DATE_THRESHOLD: "2019-01-01", // format: "YYYY-MM-DD"
 };
