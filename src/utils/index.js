@@ -58,7 +58,7 @@ export const businessLogin = () => {
  */
 export function checkOnboarding(resp) {
   if (resp?.data.length === 0) {
-    return false;
+    return "/onboard/";
   }
   const data = resp?.data.filter(
     (item) => item.traitId === "onboarding_checklist"
