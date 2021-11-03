@@ -92,7 +92,10 @@ const NavBar = ({ hideSwitchTools }) => {
                 auth.profile && (
                   <Fragment>
                     {hideSwitchTools ? null : <NotificationsMenu />}
-                    <UserMenu profile={auth.profile} />
+                    <UserMenu
+                      profile={auth.profile}
+                      hideSwitchTools={hideSwitchTools}
+                    />
                   </Fragment>
                 )
               ) : (
@@ -110,7 +113,10 @@ const NavBar = ({ hideSwitchTools }) => {
                 auth.profile && (
                   <Fragment>
                     {hideSwitchTools ? null : <NotificationsMenu />}
-                    <UserMenu profile={auth.profile} />
+                    <UserMenu
+                      profile={auth.profile}
+                      hideSwitchTools={hideSwitchTools}
+                    />
                   </Fragment>
                 )
               ) : (
