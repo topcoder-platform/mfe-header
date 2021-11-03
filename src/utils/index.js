@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import moment from "moment";
 import config from "../../config";
 
@@ -48,6 +49,7 @@ export const businessLogin = () => {
 };
 
 /**
+ * TODO: Re-check when onboarding processor is ready
  * Check Onboarding API
  *
  * @param resp {Object} User trait object
@@ -64,6 +66,16 @@ export function checkOnboarding(resp) {
   if (data.status === "completed") {
     return false;
   }
+
+  // TODO: Re-check when onboarding processor is ready.
+  // It checks for at least one onboarding checklist was completed, then we don't enter onboarding flow
+  // This logic will be changed.
+  for (const item in data.metadata) {
+    if (data.metadata[item]) {
+      return false;
+    }
+  }
+
   const steps = {
     "/onboard/": ["profile_picture", "skills"],
     "/onboard/contact-details": ["country"],
