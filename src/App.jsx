@@ -5,13 +5,12 @@ import React, { useState, useCallback, useMemo, useEffect } from "react";
 import _ from "lodash";
 import MainMenu from "./components/MainMenu";
 import NavBar from "./components/NavBar";
-import { navigate, Router } from "@reach/router";
+import { matchPath, Router, useLocation } from "@reach/router";
 import { useSelector } from "react-redux";
 import useMatchSomeRoute from "./hooks/useMatchSomeRoute";
 import NotificationsModal from "./components/NotificationsModal";
 import "./styles/main.module.scss";
-import { checkOnboarding, checkProfileCreationDate } from "./utils";
-import { getOnboardingChecklist } from "./services/auth";
+import { checkOnboardingPath } from "./utils";
 
 const App = () => {
   // all menu options
@@ -39,6 +38,7 @@ const App = () => {
       (!state.notifications.initialized &&
         !state.notifications.communityInitialized)
   );
+  const location = useLocation();
 
   // set/remove class for the whole page, to know if sidebar is present or no
   useEffect(() => {
@@ -50,21 +50,12 @@ const App = () => {
   }, [isSideBarDisabled]);
 
   useEffect(() => {
-    (async () => {
-      if (auth?.profile && checkProfileCreationDate(auth?.profile)) {
-        const { profile, tokenV3 } = auth;
-
-        const response = await getOnboardingChecklist(profile?.handle, tokenV3);
-        const onboardingPath = checkOnboarding(response);
-        if (onboardingPath) {
-          setHideSwitchTools(true);
-          navigate(onboardingPath);
-        } else {
-          setHideSwitchTools(false);
-        }
-      }
-    })();
-  }, [auth]);
+    if (matchPath("onboard/*", location.pathname)) {
+      setHideSwitchTools(true);
+    } else {
+      setHideSwitchTools(false);
+    }
+  }, [location]);
 
   return (
     <>
