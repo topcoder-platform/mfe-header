@@ -58,7 +58,6 @@ const App = () => {
         const onboardingPath = checkOnboarding(response);
         if (onboardingPath) {
           setHideSwitchTools(true);
-          navigate(onboardingPath);
         } else {
           setHideSwitchTools(false);
         }
