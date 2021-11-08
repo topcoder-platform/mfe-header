@@ -7,6 +7,7 @@ import _ from "lodash";
 import { bindActionCreators } from "redux";
 import store from "../store";
 import menuActions from "../actions/menu";
+import authActions from "../actions/auth";
 import notificationActions from "../actions/notifications";
 
 // bind all the actions for exporting here
@@ -15,12 +16,14 @@ export const {
   disableSidebarForRoute,
   enableSidebarForRoute,
   setNotificationPlatform,
+  setUserProfilePhoto
 } = bindActionCreators(
   {
     setAppMenu: menuActions.setAppMenu,
     disableSidebarForRoute: menuActions.disableSidebarForRoute,
     enableSidebarForRoute: menuActions.enableSidebarForRoute,
     setNotificationPlatform: notificationActions.setNotificationPlatform,
+    setUserProfilePhoto: authActions.setProfilePhoto,
   },
   store.dispatch
 );
