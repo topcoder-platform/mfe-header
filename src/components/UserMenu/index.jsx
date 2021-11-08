@@ -5,6 +5,7 @@
  */
 import React, { useState, useCallback, Fragment } from "react";
 import { Link } from "@reach/router";
+import PropTypes from "prop-types";
 import Avatar from "../Avatar";
 import cn from "classnames";
 import OutsideClickHandler from "react-outside-click-handler";
@@ -12,7 +13,7 @@ import { logout, getLogoutUrl } from "../../utils";
 import "./styles.css";
 import { useMediaQuery } from "react-responsive";
 
-const UserMenu = ({ profile }) => {
+const UserMenu = ({ profile, hideSwitchTools }) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
 
   const closeMenu = useCallback(() => {
@@ -63,11 +64,16 @@ const UserMenu = ({ profile }) => {
               <div className="user-menu-popover-arrow" />
               <div className="user-menu-popover-content">
                 <ul className="user-menu-list">
-                  <li>
-                    <Link to={`/profile/${profile.handle}`} onClick={closeMenu}>
-                      Profile
-                    </Link>
-                  </li>
+                  {hideSwitchTools ? null : (
+                    <li>
+                      <Link
+                        to={`/profile/${profile.handle}`}
+                        onClick={closeMenu}
+                      >
+                        Profile
+                      </Link>
+                    </li>
+                  )}
                   <li>
                     <a href={getLogoutUrl()} onClick={onLogoutClick}>
                       Log Out
@@ -81,6 +87,14 @@ const UserMenu = ({ profile }) => {
       </div>
     </OutsideClickHandler>
   );
+};
+
+UserMenu.defaultProps = {
+  hideSwitchTools: false,
+};
+
+UserMenu.propTypes = {
+  hideSwitchTools: PropTypes.boolean,
 };
 
 export default UserMenu;

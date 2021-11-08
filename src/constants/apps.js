@@ -83,4 +83,16 @@ export const APP_CATEGORIES = [
       },
     ],
   },
+  {
+    category: "Onboard",
+    hidden: true,
+    apps: [
+      {
+        title: "Member Onboarding",
+        path: "/onboard",
+        isExact: false,
+        menu: [],
+      },
+    ],
+  },
 ];

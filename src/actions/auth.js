@@ -5,6 +5,10 @@ export default {
     type: ACTIONS.AUTH.LOAD_PROFILE,
     payload: profile,
   }),
+  setProfilePhoto: (photoURL) => ({
+    type: ACTIONS.AUTH.SET_PROFILE_PHOTO,
+    payload: photoURL,
+  }),
   setTcTokenV3: (tokenV3) => ({
     type: ACTIONS.AUTH.SET_TOKEN_V3,
     payload: tokenV3,

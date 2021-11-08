@@ -11,6 +11,7 @@ import React, {
   useMemo,
 } from "react";
 import _ from "lodash";
+import PropTypes from "prop-types";
 import UserMenu from "../UserMenu";
 import AllAppsMenu from "../AllAppsMenu";
 import { useSelector } from "react-redux";
@@ -21,7 +22,7 @@ import "./styles.css";
 import { useMediaQuery } from "react-responsive";
 import NotificationsMenu from "../NotificationsMenu";
 
-const NavBar = () => {
+const NavBar = ({ hideSwitchTools }) => {
   // all menu options
   const menu = useSelector((state) => state.menu.categories);
   // flat list of all apps
@@ -54,7 +55,9 @@ const NavBar = () => {
     <div className="navbar">
       <div className="navbar-left">
         {isMobile ? (
-          <AllAppsMenu />
+          hideSwitchTools ? null : (
+            <AllAppsMenu />
+          )
         ) : (
           <Fragment>
             <Link to="/">
@@ -88,8 +91,11 @@ const NavBar = () => {
               (auth.tokenV3 ? (
                 auth.profile && (
                   <Fragment>
-                    <NotificationsMenu />
-                    <UserMenu profile={auth.profile} />
+                    {hideSwitchTools ? null : <NotificationsMenu />}
+                    <UserMenu
+                      profile={auth.profile}
+                      hideSwitchTools={hideSwitchTools}
+                    />
                   </Fragment>
                 )
               ) : (
@@ -100,14 +106,17 @@ const NavBar = () => {
           </Fragment>
         ) : (
           <Fragment>
-            <AllAppsMenu appChange={changeApp} />
+            {hideSwitchTools ? null : <AllAppsMenu appChange={changeApp} />}
             <div className="navbar-divider"></div>
             {auth.isInitialized &&
               (auth.tokenV3 ? (
                 auth.profile && (
                   <Fragment>
-                    <NotificationsMenu />
-                    <UserMenu profile={auth.profile} />
+                    {hideSwitchTools ? null : <NotificationsMenu />}
+                    <UserMenu
+                      profile={auth.profile}
+                      hideSwitchTools={hideSwitchTools}
+                    />
                   </Fragment>
                 )
               ) : (
@@ -120,6 +129,14 @@ const NavBar = () => {
       </div>
     </div>
   );
+};
+
+NavBar.defaultProps = {
+  hideSwitchTools: false,
+};
+
+NavBar.propTypes = {
+  hideSwitchTools: PropTypes.boolean,
 };
 
 export default NavBar;
