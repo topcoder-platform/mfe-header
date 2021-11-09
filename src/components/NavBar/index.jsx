@@ -51,7 +51,9 @@ const NavBar = ({ hideSwitchTools }) => {
     [setActiveApp]
   );
 
-  const renderTopcoderLogo = hideSwitchTools ? null : (
+  const renderTopcoderLogo = hideSwitchTools ? (
+    <img src={TCLogo} alt="Topcoder Logo" />
+  ) : (
     <Link to="/">
       <img src={TCLogo} alt="Topcoder Logo" />
     </Link>
@@ -67,7 +69,7 @@ const NavBar = ({ hideSwitchTools }) => {
         ) : (
           <Fragment>
             {renderTopcoderLogo}
-            {hideSwitchTools ? null : <div className="navbar-divider"></div>}
+            <div className="navbar-divider"></div>
             <div className="navbar-app-title">
               {activeApp ? activeApp.title : ""}
             </div>
@@ -105,7 +107,7 @@ const NavBar = ({ hideSwitchTools }) => {
         ) : (
           <Fragment>
             {hideSwitchTools ? null : <AllAppsMenu appChange={changeApp} />}
-            {hideSwitchTools ? null : <div className="navbar-divider"></div>}
+            <div className="navbar-divider"></div>
             {auth.isInitialized &&
               (auth.tokenV3 ? (
                 auth.profile && (
