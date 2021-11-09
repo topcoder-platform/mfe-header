@@ -3,7 +3,7 @@
  *
  * Shows global top navigation bar with all apps menu, logo and user menu.
  */
-import React, {
+ import React, {
   useState,
   useCallback,
   Fragment,
@@ -51,6 +51,12 @@ const NavBar = ({ hideSwitchTools }) => {
     [setActiveApp]
   );
 
+  const renderTopcoderLogo = hideSwitchTools ? null : (
+    <Link to="/">
+      <img src={TCLogo} alt="Topcoder Logo" />
+    </Link>
+  );
+
   return (
     <div className="navbar">
       <div className="navbar-left">
@@ -60,10 +66,8 @@ const NavBar = ({ hideSwitchTools }) => {
           )
         ) : (
           <Fragment>
-            <Link to="/">
-              <img src={TCLogo} alt="Topcoder Logo" />
-            </Link>
-            <div className="navbar-divider"></div>
+            {renderTopcoderLogo}
+            {hideSwitchTools ? null : <div className="navbar-divider"></div>}
             <div className="navbar-app-title">
               {activeApp ? activeApp.title : ""}
             </div>
@@ -72,13 +76,7 @@ const NavBar = ({ hideSwitchTools }) => {
       </div>
 
       <div className="navbar-center">
-        {isMobile ? (
-          <Link to="/">
-            <img src={TCLogo} alt="Topcoder Logo" />
-          </Link>
-        ) : (
-          <Fragment></Fragment>
-        )}
+        {isMobile ? renderTopcoderLogo : <Fragment></Fragment>}
         {process.env.NODE_ENV === "test" && (
           <h3 style={{ display: "none" }}>Navbar App Test</h3>
         )}
@@ -107,7 +105,7 @@ const NavBar = ({ hideSwitchTools }) => {
         ) : (
           <Fragment>
             {hideSwitchTools ? null : <AllAppsMenu appChange={changeApp} />}
-            <div className="navbar-divider"></div>
+            {hideSwitchTools ? null : <div className="navbar-divider"></div>}
             {auth.isInitialized &&
               (auth.tokenV3 ? (
                 auth.profile && (
