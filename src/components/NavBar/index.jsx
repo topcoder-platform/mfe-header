@@ -3,7 +3,7 @@
  *
  * Shows global top navigation bar with all apps menu, logo and user menu.
  */
-import React, {
+ import React, {
   useState,
   useCallback,
   Fragment,
@@ -51,6 +51,14 @@ const NavBar = ({ hideSwitchTools }) => {
     [setActiveApp]
   );
 
+  const renderTopcoderLogo = hideSwitchTools ? (
+    <img src={TCLogo} alt="Topcoder Logo" />
+  ) : (
+    <Link to="/">
+      <img src={TCLogo} alt="Topcoder Logo" />
+    </Link>
+  );
+
   return (
     <div className="navbar">
       <div className="navbar-left">
@@ -60,9 +68,7 @@ const NavBar = ({ hideSwitchTools }) => {
           )
         ) : (
           <Fragment>
-            <Link to="/">
-              <img src={TCLogo} alt="Topcoder Logo" />
-            </Link>
+            {renderTopcoderLogo}
             <div className="navbar-divider"></div>
             <div className="navbar-app-title">
               {activeApp ? activeApp.title : ""}
@@ -72,13 +78,7 @@ const NavBar = ({ hideSwitchTools }) => {
       </div>
 
       <div className="navbar-center">
-        {isMobile ? (
-          <Link to="/">
-            <img src={TCLogo} alt="Topcoder Logo" />
-          </Link>
-        ) : (
-          <Fragment></Fragment>
-        )}
+        {isMobile ? renderTopcoderLogo : <Fragment></Fragment>}
         {process.env.NODE_ENV === "test" && (
           <h3 style={{ display: "none" }}>Navbar App Test</h3>
         )}
