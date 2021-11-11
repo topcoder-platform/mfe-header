@@ -12,8 +12,8 @@ const Avatar = ({ profile }) => (
       <img src={profile.photoURL} alt="User avatar" className="avatar-photo" />
     ) : (
       <span className="avatar-letters">
-        {profile.firstName.charAt(0)}
-        {profile.lastName.charAt(0)}
+        {profile.firstName?.charAt(0)}
+        {profile.lastName?.charAt(0)}
       </span>
     )}
   </div>
