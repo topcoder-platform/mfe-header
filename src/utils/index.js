@@ -57,17 +57,30 @@ export const businessLogin = () => {
  */
 export function checkOnboarding(resp) {
   if (resp?.data.length === 0) {
-    return false;
+    return "/onboard/";
   }
-  const data = resp?.data.filter(
+
+  const onboardingChecklistTrait = resp?.data.filter(
     (item) => item.traitId === "onboarding_checklist"
-  )[0].traits.data[0].profile_completed;
-  if (data.status === "completed") {
+  )[0].traits;
+
+  // Check if onboarding flow needs to be skipped
+  if (
+    onboardingChecklistTrait.data[0].skip_onboarding &&
+    onboardingChecklistTrait.data[0].skip_onboarding.value === true
+  ) {
     return false;
   }
 
-  for (const item in data.metadata) {
-    if (data.metadata[item]) {
+  const profileCompletedData =
+    onboardingChecklistTrait.data[0].profile_completed;
+
+  if (profileCompletedData.status === "completed") {
+    return false;
+  }
+
+  for (const item in profileCompletedData.metadata) {
+    if (profileCompletedData.metadata[item]) {
       return false;
     }
   }
@@ -78,11 +91,12 @@ export function checkOnboarding(resp) {
     "/onboard/payments-setup": [],
     "/onboard/build-my-profile": ["bio", "work", "education", "language"],
   };
-  if (data.status === "pending_at_user") {
-    const flags = Object.keys(data.metadata);
+
+  if (profileCompletedData.status === "pending_at_user") {
+    const flags = Object.keys(profileCompletedData.metadata);
     for (const step of Object.keys(steps)) {
       for (const flag of steps[step]) {
-        if (flags.indexOf(flag) >= 0 && !data.metadata[flag]) {
+        if (flags.indexOf(flag) >= 0 && !profileCompletedData.metadata[flag]) {
           return step;
         }
       }
