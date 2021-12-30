@@ -57,20 +57,21 @@ export const businessLogin = () => {
  */
 export function checkOnboarding(resp) {
   if (resp?.data.length === 0) {
-    return "/onboard/";
+    // return "/onboard/";
+    return false;
   }
 
   const onboardingChecklistTrait = resp?.data.filter(
     (item) => item.traitId === "onboarding_checklist"
   )[0].traits;
 
-  // Check if onboarding flow needs to be skipped
-  if (
-    onboardingChecklistTrait.data[0].skip_onboarding &&
-    onboardingChecklistTrait.data[0].skip_onboarding.value === true
-  ) {
-    return false;
-  }
+  // // Check if onboarding flow needs to be skipped
+  // if (
+  //   onboardingChecklistTrait.data[0].skip_onboarding &&
+  //   onboardingChecklistTrait.data[0].skip_onboarding.value === true
+  // ) {
+  //   return false;
+  // }
 
   const profileCompletedData =
     onboardingChecklistTrait.data[0].profile_completed;
