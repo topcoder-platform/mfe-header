@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import _ from "lodash";
 import moment from "moment";
 import config from "../../config";
 
@@ -57,21 +57,29 @@ export const businessLogin = () => {
  */
 export function checkOnboarding(resp) {
   if (resp?.data.length === 0) {
-    // return "/onboard/";
-    return false;
+    return "/onboard/";
   }
 
   const onboardingChecklistTrait = resp?.data.filter(
     (item) => item.traitId === "onboarding_checklist"
   )[0].traits;
 
-  // // Check if onboarding flow needs to be skipped
-  // if (
-  //   onboardingChecklistTrait.data[0].skip_onboarding &&
-  //   onboardingChecklistTrait.data[0].skip_onboarding.value === true
-  // ) {
-  //   return false;
-  // }
+  // Check if onboarding flow needs to be skipped
+  // 1. if the trait onboarding_wizard has a valid value for status.
+  //    possible values of status are [seeen, completed]. Since we only want to show
+  //    the onboarding wizard to users who haven't at least once seen the wizard
+  //    it is sufficient to check for a non null value.
+  // 2. if the trait onboarding_wizard has a truthy value for skip.
+
+  for (let checklistTrait of onboardingChecklistTrait.data) {
+    if (
+      checklistTrait.onboarding_wizard != null &&
+      (checklistTrait.onboarding_wizard.status != null ||
+        checklistTrait.onboarding_wizard.skip)
+    ) {
+      return false;
+    }
+  }
 
   const profileCompletedData =
     onboardingChecklistTrait.data[0].profile_completed;
