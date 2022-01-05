@@ -10,8 +10,6 @@ import { useSelector } from "react-redux";
 import useMatchSomeRoute from "./hooks/useMatchSomeRoute";
 import NotificationsModal from "./components/NotificationsModal";
 import "./styles/main.module.scss";
-import { checkOnboarding, checkProfileCreationDate } from "./utils";
-import { getOnboardingChecklist } from "./services/auth";
 
 const App = () => {
   // all menu options
@@ -49,23 +47,6 @@ const App = () => {
       document.body.classList.remove("no-sidebar");
     }
   }, [isSideBarDisabled]);
-
-  useEffect(() => {
-    (async () => {
-      if (auth?.profile && checkProfileCreationDate(auth?.profile)) {
-        const { profile, tokenV3 } = auth;
-
-        const response = await getOnboardingChecklist(profile?.handle, tokenV3);
-        const onboardingPath = checkOnboarding(response);
-        if (onboardingPath) {
-          setHideSwitchTools(true);
-          navigate(onboardingPath);
-        } else {
-          setHideSwitchTools(false);
-        }
-      }
-    })();
-  }, [auth]);
 
   return (
     <>
