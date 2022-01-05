@@ -126,14 +126,3 @@ export function authenticate(store) {
     });
 }
 
-/**
- * Get the onboarding checklist data to know completed steps
- */
-export function getOnboardingChecklist(username, userTokenV3) {
-  const fetcher = getFetcher(userTokenV3);
-  return fetcher(
-    `${config.API.V5}/members/${username}/traits?traitIds=onboarding_checklist`
-  )
-    .then((res) => res.json())
-    .then((res) => ({ data: res || [] }));
-}
