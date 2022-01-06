@@ -41,12 +41,17 @@ const App = () => {
 
   // set/remove class for the whole page, to know if sidebar is present or no
   useEffect(() => {
+    if (location.pathname.includes("/self-service")) {
+      setHideSwitchTools(true);
+    } else {
+      setHideSwitchTools(false);
+    }
     if (isSideBarDisabled) {
       document.body.classList.add("no-sidebar");
     } else {
       document.body.classList.remove("no-sidebar");
     }
-  }, [isSideBarDisabled]);
+  }, [isSideBarDisabled, location.pathname]);
 
   return (
     <>
