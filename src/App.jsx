@@ -9,6 +9,8 @@ import { navigate, Router, useLocation } from "@reach/router";
 import { useSelector } from "react-redux";
 import useMatchSomeRoute from "./hooks/useMatchSomeRoute";
 import NotificationsModal from "./components/NotificationsModal";
+import { checkOnboarding, checkProfileCreationDate } from "./utils";
+import { getOnboardingChecklist } from "./services/auth";
 import "./styles/main.module.scss";
 
 const App = () => {
@@ -52,6 +54,26 @@ const App = () => {
       document.body.classList.remove("no-sidebar");
     }
   }, [isSideBarDisabled, location.pathname]);
+
+  useEffect(() => {
+    (async () => {
+      console.log('qq', auth?.profile);
+
+      if (auth?.profile && checkProfileCreationDate(auth?.profile)) {
+        const { profile, tokenV3 } = auth;
+
+        const response = await getOnboardingChecklist(profile?.handle, tokenV3);
+        const onboardingPath = checkOnboarding(response);
+        console.log('qq', onboardingPath);
+        if (onboardingPath) {
+          setHideSwitchTools(true);
+          navigate(onboardingPath);
+        } else {
+          setHideSwitchTools(false);
+        }
+      }
+    })();
+  }, [auth]);
 
   return (
     <>

@@ -3,7 +3,7 @@
  *
  * Shows global top navigation bar with all apps menu, logo and user menu.
  */
- import React, {
+import React, {
   useState,
   useCallback,
   Fragment,
