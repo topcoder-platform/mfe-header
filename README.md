@@ -68,6 +68,8 @@ This app exports functions to be imported by other microapps.
 - `getAuthUserProfile` - returns a promise which resolves to the user profile object
 - `disableSidebarForRoute` - disable (remove) sidebar for some route
 - `enableSidebarForRoute` - enable sidebar for the route, which was previously disabled
+- `disableNavigationForRoute` - disable (remove) navigation for some route
+- `enableNavigationForRoute` - enable (remove) navigation for some route
 
 #### How to export
 

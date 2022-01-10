@@ -16,7 +16,9 @@ export const {
   disableSidebarForRoute,
   enableSidebarForRoute,
   setNotificationPlatform,
-  setUserProfilePhoto
+  setUserProfilePhoto,
+  disableNavigationForRoute,
+  enableNavigationForRoute,
 } = bindActionCreators(
   {
     setAppMenu: menuActions.setAppMenu,
@@ -24,6 +26,8 @@ export const {
     enableSidebarForRoute: menuActions.enableSidebarForRoute,
     setNotificationPlatform: notificationActions.setNotificationPlatform,
     setUserProfilePhoto: authActions.setProfilePhoto,
+    disableNavigationForRoute: menuActions.disableNavigationForRoute,
+    enableNavigationForRoute: menuActions.enableNavigationForRoute,
   },
   store.dispatch
 );

@@ -18,6 +18,8 @@ import {
   getAuthUserProfile,
   setUserProfilePhoto,
   setNotificationPlatform,
+  disableNavigationForRoute,
+  enableNavigationForRoute,
 } from "./utils/exports";
 
 import { login, businessLogin, logout } from "./utils";
@@ -47,5 +49,7 @@ export {
   disableSidebarForRoute,
   enableSidebarForRoute,
   setNotificationPlatform,
+  disableNavigationForRoute,
+  enableNavigationForRoute,
   PLATFORM,
 };

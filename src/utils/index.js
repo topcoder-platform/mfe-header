@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import _ from "lodash";
 import moment from "moment";
 import config from "../../config";
 
@@ -46,4 +46,24 @@ export const login = () => {
  */
 export const businessLogin = () => {
   window.location = getBusinessLoginUrl();
+};
+
+/**
+ * Checks If current user's profile creation time
+ *
+ * @param profile {Object} user profile
+ *
+ * @returns {boolean}
+ */
+export const checkProfileCreationDate = (profile) => {
+  const thresholdDate = moment(
+    config.PROFILE_CREATION_DATE_THRESHOLD,
+    "YYYY-MM-DD"
+  );
+
+  if (profile?.createdAt) {
+    return thresholdDate.isBefore(moment(profile?.createdAt));
+  }
+
+  return false;
 };
