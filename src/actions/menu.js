@@ -39,4 +39,28 @@ export default {
     type: ACTIONS.MENU.ENABLE_SIDEBAR_FOR_ROUTE,
     payload: route,
   }),
+
+  /**
+   * Disable navigation for route.
+   *
+   * @param {String} route route path
+   *
+   * @returns {{ type: String, payload: any }} action object
+   */
+  disableNavigationForRoute: (route) => ({
+    type: ACTIONS.MENU.DISABLE_NAVIGATION_FOR_ROUTE,
+    payload: route,
+  }),
+
+  /**
+   * Enable navigation for route.
+   *
+   * @param {String} route route path
+   *
+   * @returns {{ type: String, payload: any }} action object
+   */
+  enableNavigationForRoute: (route) => ({
+    type: ACTIONS.MENU.ENABLE_NAVIGATION_FOR_ROUTE,
+    payload: route,
+  }),
 };

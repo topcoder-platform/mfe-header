@@ -18,14 +18,18 @@ const App = () => {
   const apps = useMemo(() => _.flatMap(menu, "apps"), [menu]);
   // list of routes where we have to disabled sidebar
   const disabledRoutes = useSelector((state) => state.menu.disabledRoutes);
+  // list of routes where we have to disabled navigations
+  const disabledNavigations = useSelector(
+    (state) => state.menu.disabledNavigations
+  );
   // user profile information
   const auth = useSelector((state) => state.auth);
   // `true` is sidebar has to be disabled for the current route
   const isSideBarDisabled = useMatchSomeRoute(disabledRoutes);
+  // `true` is navigation has to be disabled for the current route
+  const isNavigationDisabled = useMatchSomeRoute(disabledNavigations);
   // Left sidebar collapse state
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  // hide switch tools and notification when user is onboarding
-  const [hideSwitchTools, setHideSwitchTools] = useState(false);
   // Toggle left sidebar callback
   const toggleSidebar = useCallback(() => {
     setSidebarCollapsed(!sidebarCollapsed);
@@ -41,11 +45,6 @@ const App = () => {
 
   // set/remove class for the whole page, to know if sidebar is present or no
   useEffect(() => {
-    if (location.pathname.includes("/self-service")) {
-      setHideSwitchTools(true);
-    } else {
-      setHideSwitchTools(false);
-    }
     if (isSideBarDisabled) {
       document.body.classList.add("no-sidebar");
     } else {
@@ -55,7 +54,7 @@ const App = () => {
 
   return (
     <>
-      <NavBar hideSwitchTools={hideSwitchTools} />
+      <NavBar hideSwitchTools={isNavigationDisabled} />
       {!isSideBarDisabled && (
         <div className="main-menu-wrapper">
           <Router>

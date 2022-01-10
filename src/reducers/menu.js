@@ -10,6 +10,7 @@ import { ACTIONS, APP_CATEGORIES } from "../constants";
 const initialState = {
   categories: APP_CATEGORIES, // Default Apps Menu structure.
   disabledRoutes: [],
+  disabledNavigations: [],
 };
 
 /**
@@ -129,6 +130,35 @@ const menuReducer = (state = initialState, action) => {
         ...state,
         // remove the route from the disabled list
         disabledRoutes: _.without(state.disabledRoutes, action.payload),
+      };
+    }
+
+    case ACTIONS.MENU.DISABLE_NAVIGATION_FOR_ROUTE: {
+      // if route is already disabled, don't do anything
+      if (state.disabledNavigations.indexOf(action.payload) > -1) {
+        return state;
+      }
+
+      return {
+        ...state,
+        // add route to the disabled list
+        disabledNavigations: [...state.disabledNavigations, action.payload],
+      };
+    }
+
+    case ACTIONS.MENU.ENABLE_NAVIGATION_FOR_ROUTE: {
+      // if route is not disabled, don't do anything
+      if (state.disabledNavigations.indexOf(action.payload) === -1) {
+        return state;
+      }
+
+      return {
+        ...state,
+        // remove the route from the disabled list
+        disabledNavigations: _.without(
+          state.disabledNavigations,
+          action.payload
+        ),
       };
     }
 
