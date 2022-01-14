@@ -61,6 +61,17 @@ export const APP_CATEGORIES = [
     ],
   },
   {
+    category: "Self Service",
+    apps: [
+      {
+        title: "Work",
+        icon: earnIcon,
+        path: "/self-service",
+        menu: [],
+      },
+    ],
+  },
+  {
     category: "Do",
     apps: [
       {
