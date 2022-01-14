@@ -10,6 +10,10 @@
   z-index: 1;
   font-family: "Roboto", Arial, Helvetica, sans-serif;
 }
+.navbar.self-service-navbar {
+  padding: 0 24px;
+  background-color: #0C0C0C;
+}
 
 .navbar-left {
   display: flex;
@@ -26,6 +30,25 @@
   text-align: left;
   color: #fff;
 }
+.self-service-navbar .navbar-app-title {
+  position: relative;
+  font-family: "Barlow Condensed", Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 18px;
+}
+.self-service-navbar .navbar-app-title::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 8.5px;
+  top: 100%;
+  right: 8.5px;
+  margin: 10px 0 0;
+  border-radius: 2px;
+  height: 2px;
+  background-color: #0AB88A;
+}
 .navbar-divider {
   width: 1px;
   height: 30px;
@@ -33,6 +56,9 @@
 }
 .navbar-left .navbar-divider {
   margin: 0 30px;
+}
+.self-service-navbar .navbar-left .navbar-divider {
+  margin: 0 23px;
 }
 .navbar-center {
   left: 50%;

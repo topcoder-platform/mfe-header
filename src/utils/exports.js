@@ -16,7 +16,7 @@ export const {
   disableSidebarForRoute,
   enableSidebarForRoute,
   setNotificationPlatform,
-  setUserProfilePhoto
+  setUserProfilePhoto,
 } = bindActionCreators(
   {
     setAppMenu: menuActions.setAppMenu,

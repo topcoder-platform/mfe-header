@@ -30,10 +30,12 @@ const authReducer = (state = initialState, action) => {
         isProfileLoaded: true,
       };
     case ACTIONS.AUTH.SET_PROFILE_PHOTO:
-      return state.profile ? ({
-        ...state,
-        profile: {...state.profile, photoURL: action.payload},
-      }) : state;
+      return state.profile
+        ? {
+            ...state,
+            profile: { ...state.profile, photoURL: action.payload },
+          }
+        : state;
     case ACTIONS.AUTH.SET_INITIALIZED:
       return {
         ...state,

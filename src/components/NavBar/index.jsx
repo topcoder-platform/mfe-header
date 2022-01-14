@@ -3,13 +3,14 @@
  *
  * Shows global top navigation bar with all apps menu, logo and user menu.
  */
- import React, {
+import React, {
   useState,
   useCallback,
   Fragment,
   useEffect,
   useMemo,
 } from "react";
+import cn from "classnames";
 import _ from "lodash";
 import PropTypes from "prop-types";
 import UserMenu from "../UserMenu";
@@ -17,10 +18,12 @@ import AllAppsMenu from "../AllAppsMenu";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "@reach/router";
 import TCLogo from "../../assets/images/tc-logo.svg";
-import { getLoginUrl } from "../../utils";
+import { getLoginUrl, getSelfServiceLoginUrl } from "../../utils";
 import "./styles.css";
 import { useMediaQuery } from "react-responsive";
 import NotificationsMenu from "../NotificationsMenu";
+import SelfServiceNotifications from "../SelfServiceNotificationsMenu";
+import SelfServiceUserMenu from "../SelfServiceUserMenu";
 
 const NavBar = ({ hideSwitchTools }) => {
   // all menu options
@@ -35,13 +38,18 @@ const NavBar = ({ hideSwitchTools }) => {
   });
 
   const routerLocation = useLocation();
+
+  const loginUrl = routerLocation.pathname.startsWith("/self-service/wizard")
+    ? getSelfServiceLoginUrl()
+    : getLoginUrl();
+
   // Check app title with route activated
   useEffect(() => {
     const activeApp = apps.find(
       (f) => routerLocation.pathname.indexOf(f.path) !== -1
     );
     setActiveApp(activeApp);
-  }, [routerLocation]);
+  }, [routerLocation, apps]);
 
   // Change micro-app callback
   const changeApp = useCallback(
@@ -60,7 +68,7 @@ const NavBar = ({ hideSwitchTools }) => {
   );
 
   return (
-    <div className="navbar">
+    <div className={cn("navbar", { "self-service-navbar": hideSwitchTools })}>
       <div className="navbar-left">
         {isMobile ? (
           hideSwitchTools ? null : (
@@ -89,38 +97,54 @@ const NavBar = ({ hideSwitchTools }) => {
           <Fragment>
             {auth.isInitialized &&
               (auth.tokenV3 ? (
-                auth.profile && (
+                auth.profile &&
+                (hideSwitchTools ? (
                   <Fragment>
-                    {hideSwitchTools ? null : <NotificationsMenu />}
+                    <SelfServiceNotifications />
+                    <SelfServiceUserMenu profile={auth.profile} />
+                  </Fragment>
+                ) : (
+                  <Fragment>
+                    <NotificationsMenu />
                     <UserMenu
                       profile={auth.profile}
                       hideSwitchTools={hideSwitchTools}
                     />
                   </Fragment>
-                )
+                ))
               ) : (
-                <a href={getLoginUrl()} className="navbar-login">
+                <a href={loginUrl} className="navbar-login">
                   Login
                 </a>
               ))}
           </Fragment>
         ) : (
           <Fragment>
-            {hideSwitchTools ? null : <AllAppsMenu appChange={changeApp} />}
-            <div className="navbar-divider"></div>
+            {hideSwitchTools ? null : (
+              <Fragment>
+                <AllAppsMenu appChange={changeApp} />
+                <div className="navbar-divider" />
+              </Fragment>
+            )}
             {auth.isInitialized &&
               (auth.tokenV3 ? (
-                auth.profile && (
+                auth.profile &&
+                (hideSwitchTools ? (
                   <Fragment>
-                    {hideSwitchTools ? null : <NotificationsMenu />}
+                    <SelfServiceNotifications />
+                    <SelfServiceUserMenu profile={auth.profile} />
+                  </Fragment>
+                ) : (
+                  <Fragment>
+                    <NotificationsMenu />
                     <UserMenu
                       profile={auth.profile}
                       hideSwitchTools={hideSwitchTools}
                     />
                   </Fragment>
-                )
+                ))
               ) : (
-                <a href={getLoginUrl()} className="navbar-login">
+                <a href={loginUrl} className="navbar-login">
                   Login
                 </a>
               ))}
