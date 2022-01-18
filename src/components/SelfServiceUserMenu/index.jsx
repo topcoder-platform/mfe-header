@@ -1,7 +1,8 @@
 import React, { useCallback, useState } from "react";
 import PT from "prop-types";
 import OutsideClickHandler from "react-outside-click-handler";
-import { logout, getLogoutUrl } from "utils";
+import { logout, getLogoutUrl, getSelfServiceProfileUrl } from "utils";
+import Close from "../../assets/icons/navbar-close.svg";
 import styles from "./styles.module.scss";
 
 /**
@@ -31,20 +32,46 @@ const SelfServiceUserMenu = ({ profile }) => {
   return (
     <div className={styles.container}>
       <OutsideClickHandler onOutsideClick={onClickOutsideMenu}>
-        <div
-          className={styles.button}
-          onClick={onClickBtn}
-          role="button"
-          tabIndex={0}
-        >
-          {firstName.charAt(0)}
-          {lastName.charAt(0)}
-        </div>
+        {isOpenMenu ? (
+          <div
+            className={styles.closeIcon}
+            onClick={onClickBtn}
+            role="button"
+            tabIndex={0}
+          >
+            <Close />
+          </div>
+        ) : (
+          <div
+            className={styles.button}
+            onClick={onClickBtn}
+            role="button"
+            tabIndex={0}
+          >
+            {firstName.charAt(0)}
+            {lastName.charAt(0)}
+          </div>
+        )}
         {isOpenMenu && (
           <div className={styles.menu}>
-            <a href={getLogoutUrl()} onClick={onClickLogout}>
-              Log Out
-            </a>
+            <div className={styles.userHandleWrapper}>
+              <span
+                className={styles.userHandle}
+              >{`${firstName} ${lastName[0]}.`}</span>
+              <div className={styles.wave} />
+            </div>
+            <div className={styles.menuItemWrapper}>
+              <a className={styles.item} href={getSelfServiceProfileUrl()}>
+                My Profile
+              </a>
+              <a
+                className={styles.item}
+                href={getLogoutUrl()}
+                onClick={onClickLogout}
+              >
+                Log Out
+              </a>
+            </div>
           </div>
         )}
       </OutsideClickHandler>

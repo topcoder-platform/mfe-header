@@ -1,6 +1,9 @@
+@import "~tc-ui/src/styles/tc-includes";
+
 .container {
   position: relative;
   display: flex;
+  margin-left: 8px;
 }
 
 .button {
@@ -19,16 +22,95 @@
   cursor: pointer;
 }
 
+.closeIcon {
+  width: 32px;
+  height: 32px;
+  background-color: #fff;
+  cursor: pointer;
+  border-radius: 50%;
+
+  svg {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    margin: 0 auto;
+  }
+}
+
 .menu {
-  z-index: 3;
+  z-index: 100;
   position: absolute;
   top: 100%;
-  right: 0;
-  margin-top: 10px;
-  border: 1px solid #555;
-  border-radius: 8px;
-  padding: 5px 12px;
+  right: -15px;
+  margin-top: 19px;
+  box-shadow: 1px 1px 20px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 1px 1px 20px rgba(0,0,0,0.1);
+  -moz-box-shadow: 1px 1px 20px rgba(0,0,0,0.1);
   white-space: nowrap;
-  background-color: #fff;
   user-select: none;
+  height: 113px;
+  width: 168px;
+
+  .userHandleWrapper {
+    background: linear-gradient(0deg, #880152 0%, #BE4A1D 100%);
+    border-radius: 8px 8px 0px 0px;
+    padding: 12px 0 21px 0;
+
+    .userHandle {
+      @include roboto;
+      color: #fff;
+      font-size: 14px;
+      line-height: 16px;
+      margin-left: 16px;
+      margin-top: 12px;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: -8%;
+      bottom: 0;
+      right: 0;
+      background: url("../../assets/icons/navbar-top-overlay.png");
+      background-size: cover;
+      background-repeat: no-repeat;
+      width: 100%;
+      height: 10px;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 35%;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 9px;
+      background: url("../../assets/icons/navbar-shape-mask.png");
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+  }
+
+  .menuItemWrapper {
+    height: 64px;
+    background: #fff;
+    border-radius: 0 0 8px 8px;
+    display: flex;
+    flex-direction: column;
+
+    .item {
+      font-family: 'Barlow Condensed';
+      color: #2A2A2A;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 16px;
+      margin-top: 8px;
+      padding: 0 16px;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+  }
+
 }

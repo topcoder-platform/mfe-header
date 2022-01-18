@@ -80,3 +80,19 @@
   text-decoration: none;
   text-transform: uppercase;
 }
+
+.navbar-button {
+  color: #137D60;
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: none;
+  text-transform: uppercase;
+  border-radius: 25px;
+  background-color: #fff;
+  margin: 0px 16px;
+  padding: 10px 15px;
+}
+
+.navbar-button:hover {
+  color: #137D60;
+}

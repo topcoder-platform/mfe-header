@@ -18,7 +18,12 @@ import AllAppsMenu from "../AllAppsMenu";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "@reach/router";
 import TCLogo from "../../assets/images/tc-logo.svg";
-import { getLoginUrl, getSelfServiceLoginUrl } from "../../utils";
+import {
+  getSignUpUrl,
+  getLoginUrl,
+  getSelfServiceLoginUrl,
+  getSelfServiceSignUpUrl,
+} from "../../utils";
 import "./styles.css";
 import { useMediaQuery } from "react-responsive";
 import NotificationsMenu from "../NotificationsMenu";
@@ -42,6 +47,10 @@ const NavBar = ({ hideSwitchTools }) => {
   const loginUrl = routerLocation.pathname.startsWith("/self-service/wizard")
     ? getSelfServiceLoginUrl()
     : getLoginUrl();
+
+  const signUpUrl = routerLocation.pathname.startsWith("/self-service")
+    ? getSelfServiceSignUpUrl()
+    : getSignUpUrl();
 
   // Check app title with route activated
   useEffect(() => {
@@ -144,9 +153,16 @@ const NavBar = ({ hideSwitchTools }) => {
                   </Fragment>
                 ))
               ) : (
-                <a href={loginUrl} className="navbar-login">
-                  Login
-                </a>
+                <>
+                  <a href={loginUrl} className="navbar-login">
+                    Login
+                  </a>
+                  {hideSwitchTools && (
+                    <a href={signUpUrl} className="navbar-button">
+                      Sign Up
+                    </a>
+                  )}
+                </>
               ))}
           </Fragment>
         )}

@@ -34,8 +34,34 @@ export const getBusinessLoginUrl = () =>
  */
 export const getSelfServiceLoginUrl = () =>
   `${config.URL.AUTH}?retUrl=${encodeURIComponent(
-    `${window.location.origin}/self-service`
+    `${window.location.origin}/self-service&regSource=tcBusiness&mode=login`
   )}`;
+
+/**
+ * Returns sign-up URL
+ *
+ * @returns {string}
+ */
+export const getSignUpUrl = () =>
+  `${config.URL.AUTH}?retUrl=${encodeURIComponent(
+    `${window.location.href.match(/[^?]*/)[0]}&mode=signUp`
+  )}`;
+
+/**
+ * Returns sign-up URL using which the user should be redirected to self service
+ * dashboard page after login.
+ *
+ * @returns {string}
+ */
+export const getSelfServiceSignUpUrl = () =>
+  `${config.URL.AUTH}?retUrl=${window.location.origin}/self-service&regSource=tcBusiness&mode=signUp`;
+
+/**
+ * Returns self-service app profile url
+ *
+ * @returns {string}
+ */
+export const getSelfServiceProfileUrl = () => "/self-service/profile";
 
 /**
  * Logout user from Topcoder
