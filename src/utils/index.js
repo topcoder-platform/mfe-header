@@ -1,6 +1,7 @@
 import _ from "lodash";
 import moment from "moment";
 import config from "../../config";
+import { PLATFORM_DOMAIN } from "../constants";
 
 /**
  * Generate Logout URL
@@ -34,8 +35,18 @@ export const getBusinessLoginUrl = () =>
  */
 export const getSelfServiceLoginUrl = () =>
   `${config.URL.AUTH}?retUrl=${encodeURIComponent(
-    `${window.location.origin}/self-service`
-  )}`;
+    `${PLATFORM_DOMAIN}/self-service`
+  )}&regSource=tcBusiness&mode=login`;
+
+/**
+ * Returns Sign up URL for self service app.
+ *
+ * @returns {string}
+ */
+export const getSelfServiceSignupUrl = () =>
+  `${config.URL.AUTH}?retUrl=${encodeURIComponent(
+    `${PLATFORM_DOMAIN}/self-service`
+  )}&regSource=tcBusiness&mode=signUp`;
 
 /**
  * Logout user from Topcoder

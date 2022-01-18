@@ -1,6 +1,9 @@
 import React, { useCallback, useState } from "react";
+import { Link } from "@reach/router";
 import PT from "prop-types";
+import cn from "classnames";
 import OutsideClickHandler from "react-outside-click-handler";
+import IconCross from "../../../assets/icons/icon-cross.svg";
 import { logout, getLogoutUrl } from "utils";
 import styles from "./styles.module.scss";
 
@@ -28,8 +31,12 @@ const SelfServiceUserMenu = ({ profile }) => {
     logout();
   }, []);
 
+  const onClickMyProfile = useCallback(() => {
+    setIsOpenMenu(false);
+  }, []);
+
   return (
-    <div className={styles.container}>
+    <div className={cn(styles.container, { [styles.menuIsOpen]: isOpenMenu })}>
       <OutsideClickHandler onOutsideClick={onClickOutsideMenu}>
         <div
           className={styles.button}
@@ -37,14 +44,29 @@ const SelfServiceUserMenu = ({ profile }) => {
           role="button"
           tabIndex={0}
         >
-          {firstName.charAt(0)}
-          {lastName.charAt(0)}
+          <span className={styles.initials}>
+            {firstName.charAt(0)}
+            {lastName.charAt(0)}
+          </span>
+          <IconCross className={styles.icon} />
         </div>
         {isOpenMenu && (
           <div className={styles.menu}>
-            <a href={getLogoutUrl()} onClick={onClickLogout}>
-              Log Out
-            </a>
+            <div className={styles.userInfo}>
+              {firstName} {lastName.charAt(0)}.
+            </div>
+            <ul className={styles.items}>
+              <li>
+                <Link onClick={onClickMyProfile} to="/self-service/profile">
+                  My Profile
+                </Link>
+              </li>
+              <li>
+                <a href={getLogoutUrl()} onClick={onClickLogout}>
+                  Log Out
+                </a>
+              </li>
+            </ul>
           </div>
         )}
       </OutsideClickHandler>

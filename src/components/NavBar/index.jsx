@@ -10,7 +10,6 @@ import React, {
   useEffect,
   useMemo,
 } from "react";
-import cn from "classnames";
 import _ from "lodash";
 import PropTypes from "prop-types";
 import UserMenu from "../UserMenu";
@@ -18,12 +17,10 @@ import AllAppsMenu from "../AllAppsMenu";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "@reach/router";
 import TCLogo from "../../assets/images/tc-logo.svg";
-import { getLoginUrl, getSelfServiceLoginUrl } from "../../utils";
+import { getLoginUrl } from "../../utils";
 import "./styles.css";
 import { useMediaQuery } from "react-responsive";
 import NotificationsMenu from "../NotificationsMenu";
-import SelfServiceNotifications from "../SelfServiceNotificationsMenu";
-import SelfServiceUserMenu from "../SelfServiceUserMenu";
 
 const NavBar = ({ hideSwitchTools }) => {
   // all menu options
@@ -39,9 +36,7 @@ const NavBar = ({ hideSwitchTools }) => {
 
   const routerLocation = useLocation();
 
-  const loginUrl = routerLocation.pathname.startsWith("/self-service/wizard")
-    ? getSelfServiceLoginUrl()
-    : getLoginUrl();
+  const loginUrl = getLoginUrl();
 
   // Check app title with route activated
   useEffect(() => {
@@ -68,7 +63,7 @@ const NavBar = ({ hideSwitchTools }) => {
   );
 
   return (
-    <div className={cn("navbar", { "self-service-navbar": hideSwitchTools })}>
+    <div className="navbar">
       <div className="navbar-left">
         {isMobile ? (
           hideSwitchTools ? null : (
@@ -97,13 +92,7 @@ const NavBar = ({ hideSwitchTools }) => {
           <Fragment>
             {auth.isInitialized &&
               (auth.tokenV3 ? (
-                auth.profile &&
-                (hideSwitchTools ? (
-                  <Fragment>
-                    <SelfServiceNotifications />
-                    <SelfServiceUserMenu profile={auth.profile} />
-                  </Fragment>
-                ) : (
+                auth.profile && (
                   <Fragment>
                     <NotificationsMenu />
                     <UserMenu
@@ -111,7 +100,7 @@ const NavBar = ({ hideSwitchTools }) => {
                       hideSwitchTools={hideSwitchTools}
                     />
                   </Fragment>
-                ))
+                )
               ) : (
                 <a href={loginUrl} className="navbar-login">
                   Login
@@ -128,13 +117,7 @@ const NavBar = ({ hideSwitchTools }) => {
             )}
             {auth.isInitialized &&
               (auth.tokenV3 ? (
-                auth.profile &&
-                (hideSwitchTools ? (
-                  <Fragment>
-                    <SelfServiceNotifications />
-                    <SelfServiceUserMenu profile={auth.profile} />
-                  </Fragment>
-                ) : (
+                auth.profile && (
                   <Fragment>
                     <NotificationsMenu />
                     <UserMenu
@@ -142,7 +125,7 @@ const NavBar = ({ hideSwitchTools }) => {
                       hideSwitchTools={hideSwitchTools}
                     />
                   </Fragment>
-                ))
+                )
               ) : (
                 <a href={loginUrl} className="navbar-login">
                   Login

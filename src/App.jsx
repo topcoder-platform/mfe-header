@@ -5,6 +5,7 @@ import React, { useState, useCallback, useMemo, useEffect } from "react";
 import _ from "lodash";
 import MainMenu from "./components/MainMenu";
 import NavBar from "./components/NavBar";
+import SelfServiceNavbar from "./components/SelfService/NavBar";
 import { navigate, Router, useLocation } from "@reach/router";
 import { useSelector } from "react-redux";
 import useMatchSomeRoute from "./hooks/useMatchSomeRoute";
@@ -54,7 +55,15 @@ const App = () => {
 
   return (
     <>
-      <NavBar hideSwitchTools={isNavigationDisabled} />
+      <Router>
+        <SelfServiceNavbar path="/self-service/*" />
+        <NavBar
+          default
+          noThrow
+          hideSwitchTools={isNavigationDisabled}
+          path="/*"
+        />
+      </Router>
       {!isSideBarDisabled && (
         <div className="main-menu-wrapper">
           <Router>
