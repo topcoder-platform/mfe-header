@@ -1,0 +1,108 @@
+@import "styles/mixins";
+
+.container {
+  position: relative;
+  display: flex;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #fff;
+  border-radius: 16px;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  @include font-barlow-condensed;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 14px;
+  background: linear-gradient(90deg, #16679a 0%, #2c95d7 100%);
+  color: #fff;
+  user-select: none;
+  cursor: pointer;
+
+  .icon {
+    display: none;
+  }
+}
+
+.menuIsOpen {
+  .button {
+    background: #fff;
+
+    .initials {
+      display: none;
+    }
+
+    .icon {
+      display: block;
+      width: 14px;
+      height: auto;
+    }
+  }
+}
+
+.menu {
+  z-index: 3;
+  position: absolute;
+  top: 100%;
+  right: -16px;
+  margin-top: 20px;
+  border-radius: 8px;
+  padding: 12px 16px 16px;
+  width: 168px;
+  white-space: nowrap;
+  background-color: #fff;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2);
+  user-select: none;
+
+  &::before {
+    content: "";
+    display: block;
+    z-index: 1;
+    position: absolute;
+    left: 0;
+    top: -10px;
+    right: 0;
+    width: 168px;
+    height: 58px;
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-image: url("../../../assets/images/user-menu-header-bg.svg");
+  }
+}
+
+.userInfo {
+  z-index: 2;
+  position: relative;
+  padding: 0 0 29px;
+  @include font-roboto;
+  font-size: 14px;
+  line-height: 16px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  color: #fff;
+}
+
+.items {
+  margin-top: 0px;
+  @include font-barlow-condensed;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  text-transform: uppercase;
+
+  li {
+    margin-top: 8px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}

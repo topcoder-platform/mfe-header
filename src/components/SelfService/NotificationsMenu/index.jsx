@@ -1,5 +1,5 @@
 import React from "react";
-import Bell from "../../assets/icons/ui-bell.svg";
+import Bell from "../../../assets/icons/ui-bell.svg";
 import styles from "./styles.module.scss";
 
 /**
