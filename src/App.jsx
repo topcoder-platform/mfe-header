@@ -5,7 +5,6 @@ import React, { useState, useCallback, useMemo, useEffect } from "react";
 import _ from "lodash";
 import MainMenu from "./components/MainMenu";
 import NavBar from "./components/NavBar";
-import SelfServiceNavbar from "./components/SelfService/NavBar";
 import { navigate, Router, useLocation } from "@reach/router";
 import { useSelector } from "react-redux";
 import useMatchSomeRoute from "./hooks/useMatchSomeRoute";
@@ -56,10 +55,10 @@ const App = () => {
   return (
     <>
       <Router>
-        <SelfServiceNavbar path="/self-service/*" />
         <NavBar
           default
           noThrow
+          profileUrl={location.pathname.includes('/self-service') ? '/self-service/profile/' : `/profile/${auth.profile.handle}`}
           hideSwitchTools={isNavigationDisabled}
           path="/*"
         />

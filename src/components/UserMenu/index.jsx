@@ -13,7 +13,7 @@ import { logout, getLogoutUrl } from "../../utils";
 import "./styles.css";
 import { useMediaQuery } from "react-responsive";
 
-const UserMenu = ({ profile, hideSwitchTools }) => {
+const UserMenu = ({ profile, profileUrl }) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
 
   const closeMenu = useCallback(() => {
@@ -64,16 +64,14 @@ const UserMenu = ({ profile, hideSwitchTools }) => {
               <div className="user-menu-popover-arrow" />
               <div className="user-menu-popover-content">
                 <ul className="user-menu-list">
-                  {hideSwitchTools ? null : (
-                    <li>
-                      <Link
-                        to={`/profile/${profile.handle}`}
-                        onClick={closeMenu}
-                      >
-                        Profile
-                      </Link>
-                    </li>
-                  )}
+                  <li>
+                    <Link
+                      to={`${profileUrl}`}
+                      onClick={closeMenu}
+                    >
+                      Profile
+                    </Link>
+                  </li>
                   <li>
                     <a href={getLogoutUrl()} onClick={onLogoutClick}>
                       Log Out
@@ -90,11 +88,11 @@ const UserMenu = ({ profile, hideSwitchTools }) => {
 };
 
 UserMenu.defaultProps = {
-  hideSwitchTools: false,
+  profileUrl: '/profile',
 };
 
 UserMenu.propTypes = {
-  hideSwitchTools: PropTypes.boolean,
+  profileUrl: PropTypes.string,
 };
 
 export default UserMenu;
