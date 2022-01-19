@@ -61,7 +61,7 @@ const App = () => {
           profileUrl={
             location.pathname.includes("/self-service")
               ? "/self-service/profile/"
-              : `/profile/${auth.profile.handle}`
+              : `/profile/${_.get(auth, "profile.handle", "")}`
           }
           hideSwitchTools={isNavigationDisabled}
           path="/*"
