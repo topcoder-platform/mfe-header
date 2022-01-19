@@ -1,7 +1,6 @@
 import _ from "lodash";
 import moment from "moment";
 import config from "../../config";
-import { PLATFORM_DOMAIN } from "../constants";
 
 /**
  * Generate Logout URL
@@ -35,7 +34,7 @@ export const getBusinessLoginUrl = () =>
  */
 export const getSelfServiceLoginUrl = () =>
   `${config.URL.AUTH}?retUrl=${encodeURIComponent(
-    `${PLATFORM_DOMAIN}/self-service`
+    `${window.location.origin}/self-service`
   )}&regSource=tcBusiness&mode=login`;
 
 /**
@@ -45,7 +44,7 @@ export const getSelfServiceLoginUrl = () =>
  */
 export const getSelfServiceSignupUrl = () =>
   `${config.URL.AUTH}?retUrl=${encodeURIComponent(
-    `${PLATFORM_DOMAIN}/self-service`
+    `${window.location.origin}/self-service`
   )}&regSource=tcBusiness&mode=signUp`;
 
 /**
