@@ -20,6 +20,7 @@ import {
   setNotificationPlatform,
   disableNavigationForRoute,
   enableNavigationForRoute,
+  updateUserProfile,
 } from "./utils/exports";
 
 import { login, businessLogin, logout } from "./utils";
@@ -51,5 +52,6 @@ export {
   setNotificationPlatform,
   disableNavigationForRoute,
   enableNavigationForRoute,
+  updateUserProfile,
   PLATFORM,
 };
