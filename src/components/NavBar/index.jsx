@@ -22,7 +22,7 @@ import "./styles.css";
 import { useMediaQuery } from "react-responsive";
 import NotificationsMenu from "../NotificationsMenu";
 
-const NavBar = ({ hideSwitchTools }) => {
+const NavBar = ({ hideSwitchTools, profileUrl }) => {
   // all menu options
   const menu = useSelector((state) => state.menu.categories);
   // flat list of all apps
@@ -96,6 +96,7 @@ const NavBar = ({ hideSwitchTools }) => {
                   <Fragment>
                     <NotificationsMenu />
                     <UserMenu
+                      profileUrl={profileUrl}
                       profile={auth.profile}
                       hideSwitchTools={hideSwitchTools}
                     />
@@ -121,6 +122,7 @@ const NavBar = ({ hideSwitchTools }) => {
                   <Fragment>
                     <NotificationsMenu />
                     <UserMenu
+                      profileUrl={profileUrl}
                       profile={auth.profile}
                       hideSwitchTools={hideSwitchTools}
                     />
@@ -140,9 +142,11 @@ const NavBar = ({ hideSwitchTools }) => {
 
 NavBar.defaultProps = {
   hideSwitchTools: false,
+  profileUrl: '/profile/',
 };
 
 NavBar.propTypes = {
+  profileUrl: PropTypes.string,
   hideSwitchTools: PropTypes.boolean,
 };
 
