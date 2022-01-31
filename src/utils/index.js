@@ -35,7 +35,7 @@ export const getBusinessLoginUrl = () =>
 export const getSelfServiceLoginUrl = () =>
   `${config.URL.AUTH}?retUrl=${encodeURIComponent(
     `${window.location.origin}/self-service`
-  )}&regSource=tcBusiness&mode=login`;
+  )}&regSource=selfService&mode=login`;
 
 /**
  * Returns Sign up URL for self service app.
@@ -45,7 +45,7 @@ export const getSelfServiceLoginUrl = () =>
 export const getSelfServiceSignupUrl = () =>
   `${config.URL.AUTH}?retUrl=${encodeURIComponent(
     `${window.location.origin}/self-service`
-  )}&regSource=tcBusiness&mode=signUp`;
+  )}&regSource=selfService&mode=signUp`;
 
 /**
  * Logout user from Topcoder

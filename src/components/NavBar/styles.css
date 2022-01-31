@@ -58,3 +58,11 @@
   text-decoration: none;
   text-transform: uppercase;
 }
+
+.navbar-right .navbar-signup {
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: none;
+  text-transform: uppercase;
+  margin-left: 16px;
+}
