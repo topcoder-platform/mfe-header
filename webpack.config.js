@@ -104,6 +104,7 @@ module.exports = (webpackConfigEnv, options) => {
         components: path.resolve(__dirname, "src/components"),
         fonts: path.resolve(__dirname, "src/assets/fonts"),
         styles: path.resolve(__dirname, "src/styles"),
+        utils: path.resolve(__dirname, "src/utils"),
         handlebars: path.resolve(
           __dirname,
           "node_modules/handlebars/dist/handlebars.min.js"

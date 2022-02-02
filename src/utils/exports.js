@@ -6,6 +6,7 @@
 import _ from "lodash";
 import { bindActionCreators } from "redux";
 import store from "../store";
+import actions from "../actions";
 import menuActions from "../actions/menu";
 import authActions from "../actions/auth";
 import notificationActions from "../actions/notifications";
@@ -76,4 +77,19 @@ export const getAuthUserTokens = () => {
       });
     });
   }
+};
+
+/**
+ * Updates user profile
+ */
+export const updateUserProfile = (firstName, lastName) => {
+  const { auth } = store.getState();
+
+  const newProfile = {
+    ...auth.profile,
+    firstName,
+    lastName,
+  };
+
+  store.dispatch(actions.auth.loadProfile(newProfile || null));
 };

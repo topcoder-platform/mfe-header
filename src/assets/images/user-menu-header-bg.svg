@@ -1,0 +1,11 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 168 57.999996" enable-background="new 0 0 168 57.999996" xml:space="preserve">
+<linearGradient id="user-menu-header-bg-gradient" gradientUnits="userSpaceOnUse" x1="84" y1="-130" x2="84" y2="-81" gradientTransform="matrix(1 0 0 -1 0 -72)">
+	<stop  offset="0" style="stop-color:#880152"/>
+	<stop  offset="1" style="stop-color:#BE4A1D"/>
+</linearGradient>
+<path fill-rule="evenodd" clip-rule="evenodd" fill="url(#user-menu-header-bg-gradient" d="M133.139008,1.255748L131,3.537868
+	c-3.195999,3.409631-6.576004,5.45983-12.144997,5.462131H8c-4.41828,0-8,3.581699-8,8v41h168v-41c0-4.418301-3.582001-8-8-8
+	h-6.854996c-5.569-0.0023-8.949005-2.0525-12.145004-5.462131l-2.139008-2.28212
+	c-0.021988-0.02309-0.042999-0.04592-0.065994-0.06848C137.214996-0.422122,134.682999-0.391462,133.139008,1.255748z"/>
+<path fill="#FFFFFF" d="M168,57.999996H0v-5.242001c0,0,34.8158-8.455498,84,0c49.184006,8.455601,84,0,84,0V57.999996z"/>
+</svg>

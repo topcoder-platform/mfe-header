@@ -54,7 +54,19 @@ const App = () => {
 
   return (
     <>
-      <NavBar hideSwitchTools={isNavigationDisabled} />
+      <Router>
+        <NavBar
+          default
+          noThrow
+          profileUrl={
+            location.pathname.includes("/self-service")
+              ? "/self-service/profile/"
+              : `/profile/${_.get(auth, "profile.handle", "")}`
+          }
+          hideSwitchTools={isNavigationDisabled}
+          path="/*"
+        />
+      </Router>
       {!isSideBarDisabled && (
         <div className="main-menu-wrapper">
           <Router>
