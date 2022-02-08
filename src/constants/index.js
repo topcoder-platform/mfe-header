@@ -48,3 +48,8 @@ export const PLATFORM_DOMAIN =
   process.env.APPENV === "local"
     ? window.location.origin
     : config.URL.PLATFORM_DOMAIN;
+
+export const PATH_REG_SOURCE_MAP = [
+  { path: "/earn/gigs", regSource: "gigs" },
+  { path: "/earn/find/challenges", regSource: "challenges" },
+];
