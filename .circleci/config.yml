@@ -74,7 +74,7 @@ workflows:
             branches:
               only:
                 - dev
-                - feat/onboarding-app
+                - feat/regsource
 
       # Production builds are exectuted only on tagged commits to the
       # master branch.
