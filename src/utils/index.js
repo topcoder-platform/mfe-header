@@ -1,6 +1,7 @@
 import _ from "lodash";
 import moment from "moment";
 import config from "../../config";
+import { PATH_REG_SOURCE_MAP } from "../constants";
 
 /**
  * Generate Logout URL
@@ -13,10 +14,19 @@ export const getLogoutUrl = () =>
 /**
  * Generate Login URL
  */
-export const getLoginUrl = () =>
-  `${config.URL.AUTH}?retUrl=${encodeURIComponent(
+export const getLoginUrl = () => {
+  let regSource = null;
+  const pathname = window.location.pathname;
+  for (const { path, regSource: source } of PATH_REG_SOURCE_MAP) {
+    if (pathname.indexOf(path) != -1) {
+      regSource = source;
+    }
+  }
+
+  return `${config.URL.AUTH}?retUrl=${encodeURIComponent(
     window.location.href.match(/[^?]*/)[0]
-  )}`;
+  )}${regSource != null ? "&regSource=" + regSource : ""}`;
+};
 
 /**
  * Generate Business Login URL
