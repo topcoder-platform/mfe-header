@@ -5,6 +5,7 @@ import React, { useState, useCallback, useMemo, useEffect } from "react";
 import _ from "lodash";
 import MainMenu from "./components/MainMenu";
 import NavBar from "./components/NavBar";
+import Breadcrumb from "./components/Breadcrumb";
 import { navigate, Router, useLocation } from "@reach/router";
 import { useSelector } from "react-redux";
 import useMatchSomeRoute from "./hooks/useMatchSomeRoute";
@@ -43,6 +44,10 @@ const App = () => {
   );
   const location = useLocation();
 
+  const breadcrumb = [
+    {url:'/', name:"my work"},
+    {url:'/start-work', name:"start work"}];
+
   // set/remove class for the whole page, to know if sidebar is present or no
   useEffect(() => {
     if (isSideBarDisabled) {
@@ -67,6 +72,7 @@ const App = () => {
           path="/*"
         />
       </Router>
+      <Breadcrumb breadcrumbItems={breadcrumb} />
       {!isSideBarDisabled && (
         <div className="main-menu-wrapper">
           <Router>
