@@ -164,7 +164,7 @@ const NavBar = ({ hideSwitchTools, profileUrl }) => {
 
 NavBar.defaultProps = {
   hideSwitchTools: false,
-  profileUrl: '/profile/',
+  profileUrl: '/account/',
 };
 
 NavBar.propTypes = {

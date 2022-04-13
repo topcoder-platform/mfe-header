@@ -88,7 +88,7 @@ export const APP_CATEGORIES = [
     apps: [
       {
         title: "Profile App",
-        path: "/profile/",
+        path: "/account/",
         isExact: false,
         menu: [],
       },
