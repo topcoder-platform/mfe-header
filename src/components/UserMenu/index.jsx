@@ -69,7 +69,7 @@ const UserMenu = ({ profile, profileUrl }) => {
                       to={`${profileUrl}`}
                       onClick={closeMenu}
                     >
-                      Profile
+                      Account
                     </Link>
                   </li>
                   <li>
