@@ -105,6 +105,9 @@ module.exports = (webpackConfigEnv, options) => {
           APPENV: JSON.stringify(process.env.APPENV),
         },
       }),
+      new webpack.ProvidePlugin({
+        "React": "react",
+     }),
     ],
     resolve: {
       alias: {

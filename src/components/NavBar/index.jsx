@@ -27,6 +27,7 @@ import "./styles.css";
 import { useMediaQuery } from "react-responsive";
 import NotificationsMenu from "../NotificationsMenu";
 import Button from "../Button";
+import { ProfileSelector } from '../../../src-ts/profile-selector'
 
 const NavBar = ({ hideSwitchTools, profileUrl }) => {
   const [isSelfService, setIsSelfService] = useState(false);
@@ -85,7 +86,10 @@ const NavBar = ({ hideSwitchTools, profileUrl }) => {
             {renderTopcoderLogo}
             <div className="navbar-divider"></div>
             <div className="navbar-app-title">
-              {activeApp ? activeApp.title : ""}
+              {isSelfService && (
+                <Link to='/self-service'>Work</Link>
+              )}
+              {!isSelfService && (activeApp?.title || "")}
             </div>
           </Fragment>
         )}
@@ -131,12 +135,22 @@ const NavBar = ({ hideSwitchTools, profileUrl }) => {
               (auth.tokenV3 ? (
                 auth.profile && (
                   <Fragment>
-                    {!isSelfService && <NotificationsMenu />}
-                    <UserMenu
-                      profileUrl={profileUrl}
-                      profile={auth.profile}
-                      hideSwitchTools={hideSwitchTools}
-                    />
+                    {!isSelfService && (
+                      <>
+                        <NotificationsMenu />
+                        <UserMenu
+                          profileUrl={profileUrl}
+                          profile={auth.profile}
+                          hideSwitchTools={hideSwitchTools}
+                        />
+                      </>
+                    )}
+                    {isSelfService && (
+                      <ProfileSelector
+                        initialized={auth.isInitialized}
+                        profile={auth.profile}
+                      />
+                    )}
                   </Fragment>
                 )
               ) : (
@@ -164,7 +178,7 @@ const NavBar = ({ hideSwitchTools, profileUrl }) => {
 
 NavBar.defaultProps = {
   hideSwitchTools: false,
-  profileUrl: '/account/',
+  profileUrl: '/profile/',
 };
 
 NavBar.propTypes = {
