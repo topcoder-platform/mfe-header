@@ -105,6 +105,53 @@ const NavBar = ({ hideSwitchTools, profileUrl }) => {
       </Link>
     )
 
+  const renderProfile = !isSelfService
+    ? (
+      <>
+        <NotificationsMenu />
+        <UserMenu
+          profileUrl={profileUrl}
+          profile={auth.profile}
+          hideSwitchTools={hideSwitchTools}
+        />
+      </>
+    )
+    : (
+      <ProfileSelector
+        initialized={auth.isInitialized}
+        profile={auth.profile}
+        workPath={workPath}
+      />
+    )
+
+  const renderLogin = (
+    <a href={loginUrl} className="navbar-login">
+      Log in
+    </a>
+  )
+
+  const renderSignup = (
+    <Button
+      href={signupUrl}
+      className="navbar-signup"
+      type={BUTTON_TYPE.SECONDARY}
+    >
+      SIGN UP
+    </Button>
+  )
+  const renderNotLoggedIn = !isSelfService
+    ? renderLogin
+    : (isMobile
+      ? renderSignup
+      : (
+        <>
+          {renderLogin}
+          {renderSignup}
+        </>
+      )
+    )
+
+
   return (
     <div className="navbar">
       <div className="navbar-left">
@@ -134,22 +181,7 @@ const NavBar = ({ hideSwitchTools, profileUrl }) => {
         {isMobile ? (
           <Fragment>
             {auth.isInitialized &&
-              (auth.tokenV3 ? (
-                auth.profile && (
-                  <Fragment>
-                    <NotificationsMenu />
-                    <UserMenu
-                      profileUrl={profileUrl}
-                      profile={auth.profile}
-                      hideSwitchTools={hideSwitchTools}
-                    />
-                  </Fragment>
-                )
-              ) : (
-                <a href={loginUrl} className="navbar-login">
-                  Login
-                </a>
-              ))}
+              (auth.tokenV3 ? (auth.profile && (renderProfile)) : (renderNotLoggedIn))}
           </Fragment>
         ) : (
           <Fragment>
@@ -160,44 +192,7 @@ const NavBar = ({ hideSwitchTools, profileUrl }) => {
               </Fragment>
             )}
             {auth.isInitialized &&
-              (auth.tokenV3 ? (
-                auth.profile && (
-                  <Fragment>
-                    {!isSelfService && (
-                      <>
-                        <NotificationsMenu />
-                        <UserMenu
-                          profileUrl={profileUrl}
-                          profile={auth.profile}
-                          hideSwitchTools={hideSwitchTools}
-                        />
-                      </>
-                    )}
-                    {isSelfService && (
-                      <ProfileSelector
-                        initialized={auth.isInitialized}
-                        profile={auth.profile}
-                        workPath={workPath}
-                      />
-                    )}
-                  </Fragment>
-                )
-              ) : (
-                <Fragment>
-                  <a href={loginUrl} className="navbar-login">
-                    Login
-                  </a>
-                  {isSelfService && (
-                    <Button
-                      href={signupUrl}
-                      className="navbar-signup"
-                      type={BUTTON_TYPE.SECONDARY}
-                    >
-                      SIGN UP
-                    </Button>
-                  )}
-                </Fragment>
-              ))}
+              (auth.tokenV3 ? (auth.profile && (renderProfile)) : (renderNotLoggedIn))}
           </Fragment>
         )}
       </div>

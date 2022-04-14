@@ -17,6 +17,12 @@
   margin-top: -3px;
 }
 
+@media (max-width: 1023px) {
+  .navbar .logo-no-link {
+    margin-top: 0;
+  }
+}
+
 .navbar-left {
   display: flex;
   flex-direction: row;
