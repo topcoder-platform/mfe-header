@@ -35,7 +35,7 @@ const ProfilePanel: FC<ProfilePanelProps> = (props: ProfilePanelProps) => {
             <Link
                 className={styles.profile}
                 onClick={() => props.toggleProfilePanel()}
-                to={`'${props.workPath}/account'`}
+                to={`${props.workPath}/account`}
             >
                 Account
             </Link>
