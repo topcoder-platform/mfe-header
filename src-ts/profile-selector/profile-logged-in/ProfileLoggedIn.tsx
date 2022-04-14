@@ -8,6 +8,7 @@ import styles from './ProfileLoggedIn.module.scss'
 
 interface ProfileLoggedInProps {
     profile: UserProfile
+    workPath: string
 }
 
 const ProfileLoggedIn: FC<ProfileLoggedInProps> = (props: ProfileLoggedInProps) => {
@@ -61,6 +62,7 @@ const ProfileLoggedIn: FC<ProfileLoggedInProps> = (props: ProfileLoggedInProps) 
                     profile={profile}
                     refObject={ref}
                     toggleProfilePanel={toggleProfilePanel}
+                    workPath={props.workPath}
                 />
             )}
         </>
