@@ -77,7 +77,7 @@ const NavBar = ({ hideSwitchTools, profileUrl }) => {
   // don't make the logo a link
   let renderTopcoderLogo
 
-  if (hideSwitchTools && isSelfServiceHome) {
+  if (hideSwitchTools || isSelfServiceHome) {
 
     const linkClass = isSelfServiceHome ? 'logo-no-link' : ''
     renderTopcoderLogo = (
