@@ -10,6 +10,7 @@ interface ProfilePanelProps {
     profile: UserProfile
     refObject: MutableRefObject<any>
     toggleProfilePanel: () => void
+    workPath: string
 }
 
 const ProfilePanel: FC<ProfilePanelProps> = (props: ProfilePanelProps) => {
@@ -21,7 +22,7 @@ const ProfilePanel: FC<ProfilePanelProps> = (props: ProfilePanelProps) => {
         return <></>
     }
 
-    const authUrlLogout: string = `${config.URL.ACCOUNTS_APP_CONNECTOR}?logout=true&retUrl=${encodeURIComponent('https://' + window.location.host)}`
+    const authUrlLogout: string = `${config.URL.ACCOUNTS_APP_CONNECTOR}?logout=true&retUrl=${encodeURIComponent(`https://${window.location.host}${props.workPath}`)}`
 
     return (
         <div
@@ -34,7 +35,7 @@ const ProfilePanel: FC<ProfilePanelProps> = (props: ProfilePanelProps) => {
             <Link
                 className={styles.profile}
                 onClick={() => props.toggleProfilePanel()}
-                to='/self-service/account'
+                to={`${props.workPath}/account`}
             >
                 Account
             </Link>
