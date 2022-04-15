@@ -8,6 +8,7 @@ import { UserProfile } from './user-profile.model'
 interface ProfileSelectorProps {
     initialized: boolean
     profile: UserProfile
+    workPath: string
 }
 
 const ProfileSelector: FC<ProfileSelectorProps> = (props: ProfileSelectorProps) => {
@@ -23,7 +24,12 @@ const ProfileSelector: FC<ProfileSelectorProps> = (props: ProfileSelectorProps) 
     return (
         <div className={styles['profile-selector']}>
             {!isLoggedIn && <ProfileNotLoggedIn />}
-            {isLoggedIn && <ProfileLoggedIn profile={profile} />}
+            {isLoggedIn && (
+                <ProfileLoggedIn
+                    profile={profile}
+                    workPath={props.workPath}
+                />
+            )}
         </div>
     )
 }

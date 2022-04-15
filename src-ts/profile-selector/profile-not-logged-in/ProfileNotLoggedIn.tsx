@@ -7,7 +7,7 @@ import styles from './ProfileNotLoggedIn.module.scss'
 
 const ProfileNotLoggedIn: FC<{}> = () => {
 
-    const login: string = `${config.URL.ACCOUNTS_APP_CONNECTOR}?retUrl=${encodeURIComponent(window.location.href.match(/[^?]*/)?.[0] || fallback)}`
+    const login: string = `${config.URL.ACCOUNTS_APP_CONNECTOR}?retUrl=${encodeURIComponent(window.location.href)}`
     const signup: string = `${login}&regSource=tcBusiness&mode=signUp`
 
     return (
