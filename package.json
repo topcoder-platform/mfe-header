@@ -1,5 +1,5 @@
 {
-  "name": "@topcoder/micro-frontends-navbar-app",
+  "name": "@topcoder/mfe-header",
   "scripts": {
     "start": "node server.js",
     "dev": "cross-env APPMODE=development webpack-dev-server",
