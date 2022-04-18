@@ -1,7 +1,7 @@
 /**
  * Prepare all the methods to be ready for exporting to be used in other micoapps in this file.
  *
- * Additionally, we need to export them in `topcoder-micro-frontends-navbar-app.js`.
+ * Additionally, we need to export them in `topcoder-mfe-header.js`.
  */
 import _ from "lodash";
 import { bindActionCreators } from "redux";

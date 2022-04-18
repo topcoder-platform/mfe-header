@@ -8,10 +8,10 @@ ENV APPMODE=$APPMODE
 ENV APPENV=$APPENV
 
 # Copy the current directory into the Docker image
-COPY . /micro-frontends-navbar-app
+COPY . /mfe-header
 
 # Set working directory for future use
-WORKDIR /micro-frontends-navbar-app
+WORKDIR /mfe-header
 
 # Install the dependencies from package.json
 RUN npm install

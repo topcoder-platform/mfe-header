@@ -1,7 +1,7 @@
 version: "3"
 services:
-  micro-frontends-navbar-app:
-    image: micro-frontends-navbar-app:latest
+  mfe-header:
+    image: mfe-header:latest
     build:
       context: ../
       dockerfile: docker/Dockerfile
