@@ -10,8 +10,11 @@ import Avatar from "../Avatar";
 import cn from "classnames";
 import OutsideClickHandler from "react-outside-click-handler";
 import { logout, getLogoutUrl } from "../../utils";
-import "./styles.css";
+import "./styles.scss";
 import { useMediaQuery } from "react-responsive";
+
+import Settings from "../../assets/images/settings.svg";
+import LogOut from "../../assets/images/logout.svg";
 
 const UserMenu = ({ profile, profileUrl }) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -45,36 +48,23 @@ const UserMenu = ({ profile, profileUrl }) => {
           tabIndex="0"
         >
           <Avatar profile={profile} />
-          {isMobile ? (
-            <Fragment></Fragment>
-          ) : (
-            <div className="user-menu-handle">{profile.handle}</div>
-          )}
         </div>
 
         {isOpenMenu && (
           <div className="user-menu-popover-wrapper">
-            <div
-              className="user-menu-popover-overlay"
-              onClick={closeMenu}
-              role="button"
-              tabIndex="-1"
-            />
             <div className="user-menu-popover">
               <div className="user-menu-popover-arrow" />
               <div className="user-menu-popover-content">
+                <div className="user-menu-handle">{profile.handle}</div>
                 <ul className="user-menu-list">
                   <li>
-                    <Link
-                      to={`${profileUrl}`}
-                      onClick={closeMenu}
-                    >
-                      Account
+                    <Link to={`${profileUrl}`} onClick={closeMenu}>
+                      <img src={Settings} alt="#" /> Profile Settings
                     </Link>
                   </li>
                   <li>
                     <a href={getLogoutUrl()} onClick={onLogoutClick}>
-                      Log Out
+                      <img src={LogOut} alt="#" /> Log Out
                     </a>
                   </li>
                 </ul>

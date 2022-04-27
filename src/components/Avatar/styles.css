@@ -6,8 +6,10 @@
 }
 
 .avatar-photo {
-  height: 32px;
-  width: 32px;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .avatar-letters {

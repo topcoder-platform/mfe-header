@@ -1,0 +1,70 @@
+@import "../../styles/variables";
+
+:global { 
+  .navbar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--navbarHeight);
+    padding: 0 32px 0 24px;
+    background-color: $header-bg;
+    font-family: "Roboto", Arial, Helvetica, sans-serif;
+    z-index: 1;
+
+    &-left {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      .navbar-divider {
+        margin: 0 24px;
+      }
+    }
+
+    &-center {
+      left: 50%;
+      position: absolute;
+      transform: translateX(-50%);
+    }
+
+    &-right {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+
+      .navbar-divider {
+        margin: 0 15px;
+      }
+
+      .navbar-login {
+        color: $tc-white;
+        font-size: 14px;
+        font-weight: bold;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+      
+      .navbar-signup {
+        margin-left: 16px;
+        font-size: 14px;
+        font-weight: bold;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+    }
+
+    &-app-title {
+      color: $gui-kit-gray-30;
+      font-family: 'Barlow Condensed';
+      font-weight: 500;
+      font-size: 22px;
+      text-transform: uppercase;
+    }
+
+    &-divider {
+      width: 1px;
+      height: 30px;
+      background-color: $gray-80;
+    }
+  }
+}

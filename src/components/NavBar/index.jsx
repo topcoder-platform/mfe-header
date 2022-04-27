@@ -23,7 +23,7 @@ import {
   getSelfServiceSignupUrl,
 } from "../../utils";
 import { BUTTON_TYPE } from "constants/";
-import "./styles.css";
+import "./styles.scss";
 import { useMediaQuery } from "react-responsive";
 import NotificationsMenu from "../NotificationsMenu";
 import Button from "../Button";
