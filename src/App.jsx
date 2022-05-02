@@ -43,6 +43,11 @@ const App = () => {
   );
   const location = useLocation();
 
+  // if this is the self-service app, don't display anything
+  if (!!['/self-service', '/work'].find(path => location.pathname.startsWith(path))) {
+    return <></>
+  }
+
   // set/remove class for the whole page, to know if sidebar is present or no
   useEffect(() => {
     if (isSideBarDisabled) {
