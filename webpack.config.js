@@ -9,7 +9,7 @@ const webpack = require("webpack");
 module.exports = (webpackConfigEnv, options) => {
   const defaultConfig = singleSpaDefaults({
     orgName: "topcoder",
-    projectName: "micro-frontends-navbar-app",
+    projectName: "mfe-header",
     webpackConfigEnv,
     disableHtmlGeneration: true,
   });
