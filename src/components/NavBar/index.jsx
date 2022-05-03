@@ -27,7 +27,6 @@ import "./styles.css";
 import { useMediaQuery } from "react-responsive";
 import NotificationsMenu from "../NotificationsMenu";
 import Button from "../Button";
-import { ProfileSelector } from '../../../src-ts/profile-selector'
 
 const NavBar = ({ hideSwitchTools, profileUrl }) => {
   const [isSelfService, setIsSelfService] = useState(false);
@@ -47,8 +46,6 @@ const NavBar = ({ hideSwitchTools, profileUrl }) => {
   const loginUrl = isSelfService ? getSelfServiceLoginUrl() : getLoginUrl();
   const signupUrl = isSelfService ? getSelfServiceSignupUrl() : "";
 
-  const workPath = '/self-service'
-
   // Check app title with route activated
   useEffect(() => {
     const activeApp = apps.find(
@@ -56,7 +53,7 @@ const NavBar = ({ hideSwitchTools, profileUrl }) => {
     );
     setActiveApp(activeApp);
 
-    setIsSelfService(routerLocation.pathname.indexOf(workPath) !== -1);
+    setIsSelfService(routerLocation.pathname.indexOf("/self-service") !== -1);
   }, [routerLocation, apps]);
 
   // Change micro-app callback
@@ -67,90 +64,14 @@ const NavBar = ({ hideSwitchTools, profileUrl }) => {
     [setActiveApp]
   );
 
-
-  // if this is work app, we only want to show the link as clickable
-  // if we're not on the page to which the link goes
-  const isSelfServiceHome = [workPath, `${workPath}/dashboard`].includes(routerLocation.pathname)
-
-  // if the consuming app has requested that we disable the navigation
-  // or we're on the work app home page,
-  // don't make the logo a link
-  let renderTopcoderLogo
-
-  if (hideSwitchTools || isSelfServiceHome) {
-
-    const linkClass = isSelfServiceHome ? 'logo-no-link' : ''
-    renderTopcoderLogo = (
-      <img
-        className={linkClass}
-        src={TCLogo} alt="Topcoder Logo" />
-    )
-
-  } else {
-
-    renderTopcoderLogo = (
-      <Link to={isSelfService ? workPath : "/"}>
+  const renderTopcoderLogo =
+    hideSwitchTools && !isSelfService ? (
+      <img src={TCLogo} alt="Topcoder Logo" />
+    ) : (
+      <Link to={isSelfService ? "/self-service" : "/"}>
         <img src={TCLogo} alt="Topcoder Logo" />
       </Link>
-    )
-  }
-
-  // if this is not the self service app or it's the self service home,
-  // make the title not clickable
-  const renderTitle = !isSelfService || isSelfServiceHome
-    ? activeApp?.title || ""
-    : (
-      <Link to={workPath}>
-        Work
-      </Link>
-    )
-
-  const renderProfile = !isSelfService
-    ? (
-      <>
-        <NotificationsMenu />
-        <UserMenu
-          profileUrl={profileUrl}
-          profile={auth.profile}
-          hideSwitchTools={hideSwitchTools}
-        />
-      </>
-    )
-    : (
-      <ProfileSelector
-        initialized={auth.isInitialized}
-        profile={auth.profile}
-        workPath={workPath}
-      />
-    )
-
-  const renderLogin = (
-    <a href={loginUrl} className="navbar-login">
-      Log in
-    </a>
-  )
-
-  const renderSignup = (
-    <Button
-      href={signupUrl}
-      className="navbar-signup"
-      type={BUTTON_TYPE.SECONDARY}
-    >
-      SIGN UP
-    </Button>
-  )
-  const renderNotLoggedIn = !isSelfService
-    ? renderLogin
-    : (isMobile
-      ? renderSignup
-      : (
-        <>
-          {renderLogin}
-          {renderSignup}
-        </>
-      )
-    )
-
+    );
 
   return (
     <div className="navbar">
@@ -164,7 +85,7 @@ const NavBar = ({ hideSwitchTools, profileUrl }) => {
             {renderTopcoderLogo}
             <div className="navbar-divider"></div>
             <div className="navbar-app-title">
-              {renderTitle}
+              {activeApp ? activeApp.title : ""}
             </div>
           </Fragment>
         )}
@@ -181,7 +102,22 @@ const NavBar = ({ hideSwitchTools, profileUrl }) => {
         {isMobile ? (
           <Fragment>
             {auth.isInitialized &&
-              (auth.tokenV3 ? (auth.profile && (renderProfile)) : (renderNotLoggedIn))}
+              (auth.tokenV3 ? (
+                auth.profile && (
+                  <Fragment>
+                    <NotificationsMenu />
+                    <UserMenu
+                      profileUrl={profileUrl}
+                      profile={auth.profile}
+                      hideSwitchTools={hideSwitchTools}
+                    />
+                  </Fragment>
+                )
+              ) : (
+                <a href={loginUrl} className="navbar-login">
+                  Login
+                </a>
+              ))}
           </Fragment>
         ) : (
           <Fragment>
@@ -192,7 +128,33 @@ const NavBar = ({ hideSwitchTools, profileUrl }) => {
               </Fragment>
             )}
             {auth.isInitialized &&
-              (auth.tokenV3 ? (auth.profile && (renderProfile)) : (renderNotLoggedIn))}
+              (auth.tokenV3 ? (
+                auth.profile && (
+                  <Fragment>
+                    {!isSelfService && <NotificationsMenu />}
+                    <UserMenu
+                      profileUrl={profileUrl}
+                      profile={auth.profile}
+                      hideSwitchTools={hideSwitchTools}
+                    />
+                  </Fragment>
+                )
+              ) : (
+                <Fragment>
+                  <a href={loginUrl} className="navbar-login">
+                    Login
+                  </a>
+                  {isSelfService && (
+                    <Button
+                      href={signupUrl}
+                      className="navbar-signup"
+                      type={BUTTON_TYPE.SECONDARY}
+                    >
+                      SIGN UP
+                    </Button>
+                  )}
+                </Fragment>
+              ))}
           </Fragment>
         )}
       </div>

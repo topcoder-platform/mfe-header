@@ -58,7 +58,11 @@ const App = () => {
         <NavBar
           default
           noThrow
-          profileUrl={`/profile/${_.get(auth, "profile.handle", "")}`}
+          profileUrl={
+            location.pathname.includes("/self-service")
+              ? "/self-service/profile/"
+              : `/profile/${_.get(auth, "profile.handle", "")}`
+          }
           hideSwitchTools={isNavigationDisabled}
           path="/*"
         />
