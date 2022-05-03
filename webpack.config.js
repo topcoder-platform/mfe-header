@@ -89,6 +89,14 @@ module.exports = (webpackConfigEnv, options) => {
             },
           ],
         },
+        {
+          test: /\.(js|jsx|ts|tsx)$/,
+          exclude: /(node_modules|bower_components)/,
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/env", "@babel/preset-react", "@babel/preset-typescript"]
+          }
+        },
       ],
     },
     plugins: [
@@ -110,6 +118,7 @@ module.exports = (webpackConfigEnv, options) => {
           "node_modules/handlebars/dist/handlebars.min.js"
         ),
       },
+      extensions: [".ts", ".tsx", ".js", ".jsx"],
       symlinks: false,
     },
     devServer: {
