@@ -9,7 +9,7 @@ const webpack = require("webpack");
 module.exports = (webpackConfigEnv, options) => {
   const defaultConfig = singleSpaDefaults({
     orgName: "topcoder",
-    projectName: "micro-frontends-navbar-app",
+    projectName: "mfe-header",
     webpackConfigEnv,
     disableHtmlGeneration: true,
   });
@@ -105,6 +105,9 @@ module.exports = (webpackConfigEnv, options) => {
           APPENV: JSON.stringify(process.env.APPENV),
         },
       }),
+      new webpack.ProvidePlugin({
+        "React": "react",
+     }),
     ],
     resolve: {
       alias: {
