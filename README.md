@@ -35,7 +35,7 @@ Inside the project folder run:
 
 - `npm i` - install dependencies
 - `npm run dev` - run app in development mode
-- As this app can be loaded only inside a frame single-spa, you have to run a `micro-frontends-frame` frame app and configure it to use the URL `http://localhost:8080/topcoder-micro-frontends-navbar-app.js`.
+- As this app can be loaded only inside a frame single-spa, you have to run a `mfe-core` frame app and configure it to use the URL `http://localhost:8080/topcoder-mfe-header.js`.
 
 ## Deployment to Production
 
@@ -53,7 +53,7 @@ Make sure you have [Heroky CLI](https://devcenter.heroku.com/articles/heroku-cli
   - `git commit -m'inital commit'`
 - `heroku apps:create` - create Heroku app
 - `git push heroku master` - push changes to Heroku and trigger deploying
-- Now you have to configure frame app to use the URL provided by Heroku like `https://<APP-NAME>.herokuapp.com/topcoder-micro-frontends-navbar-app.js` to load this microapp.
+- Now you have to configure frame app to use the URL provided by Heroku like `https://<APP-NAME>.herokuapp.com/topcoder-mfe-header.js` to load this microapp.
 - NOTE: Authorization would not work because only predefined list of domain allowed by `accounts-app`.
 
 ### Cross microfrontend imports
@@ -73,7 +73,7 @@ This app exports functions to be imported by other microapps.
 
 #### How to export
 
-- To export any function we have to `export` in file [src/topcoder-micro-frontends-navbar-app.js](src/topcoder-micro-frontends-navbar-app.js).
+- To export any function we have to `export` in file [src/topcoder-mfe-header.js](src/topcoder-mfe-header.js).
 - If we want to prepare some function for exporting, the good place to do so is inside [src/utils/exports.js](src/utils/exports.js).
   - We have to bind actions before exporting.
   - It's not recommended to export the whole Redux Store to keep only navbar responsible for updating it. It's better to create promises which would return some particular value from the store.
@@ -86,15 +86,15 @@ When we want to use methods exported in the navbar microapp in other apps we hav
 
 For example see https://github.com/topcoder-platform/micro-frontends-react-app
 
-1. Add `@topcoder/micro-frontends-navbar-app` to `externals` in webpack config:
+1. Add `@topcoder/mfe-header` to `externals` in webpack config:
 
    ```js
    externals: {
-      "@topcoder/micro-frontends-navbar-app": "@topcoder/micro-frontends-navbar-app",
+      "@topcoder/mfe-header": "@topcoder/mfe-header",
     },
    ```
 
-2. As `importmaps` only work in browser and don't work in unit test, we have to mock this module in unit tests. For example by creating a file `src/__mocks__/@topcoder/micro-frontends-navbar-app.js` with the content like:
+2. As `importmaps` only work in browser and don't work in unit test, we have to mock this module in unit tests. For example by creating a file `src/__mocks__/@topcoder/mfe-header.js` with the content like:
    ```js
    module.exports = {
      login: () => {},
@@ -112,18 +112,18 @@ For example see https://github.com/topcoder-platform/micro-frontends-react-app
 
 For example see https://github.com/topcoder-platform/micro-frontends-angular-app
 
-1. Add `@topcoder/micro-frontends-navbar-app` to `externals` in webpack config:
+1. Add `@topcoder/mfe-header` to `externals` in webpack config:
 
    ```js
    externals: {
-      "@topcoder/micro-frontends-navbar-app": "@topcoder/micro-frontends-navbar-app",
+      "@topcoder/mfe-header": "@topcoder/mfe-header",
     },
    ```
 
 2. Add type definition in `src/typings.d.ts`:
 
    ```js
-   declare module '@topcoder/micro-frontends-navbar-app' {
+   declare module '@topcoder/mfe-header' {
      export const login: any;
      export const businessLogin: any;
      export const logout: any;
@@ -135,4 +135,4 @@ For example see https://github.com/topcoder-platform/micro-frontends-angular-app
    }
    ```
 
-3. TODO: How to make e2e tests work for Angular? So far they fail with error `Module not found: Error: Can't resolve '@topcoder/micro-frontends-navbar-app'`
+3. TODO: How to make e2e tests work for Angular? So far they fail with error `Module not found: Error: Can't resolve '@topcoder/mfe-header'`

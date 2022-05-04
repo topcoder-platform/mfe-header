@@ -60,7 +60,7 @@ const App = () => {
           noThrow
           profileUrl={
             location.pathname.includes("/self-service")
-              ? "/self-service/profile/"
+              ? "/self-service/account/"
               : `/profile/${_.get(auth, "profile.handle", "")}`
           }
           hideSwitchTools={isNavigationDisabled}
