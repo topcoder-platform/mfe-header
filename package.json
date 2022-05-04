@@ -79,7 +79,7 @@
     "react-stickynode": "^1.4.1",
     "react-transition-group": "^2.9.0",
     "recompose": "^0.30.0",
-    "redux": "^4.0.5",
+    "redux": "^4.1.2",
     "redux-thunk": "^2.3.0",
     "tc-auth-lib": "topcoder-platform/tc-auth-lib#1.0.3",
     "tc-ui": "appirio-tech/tc-ui#feature/connectv2"
