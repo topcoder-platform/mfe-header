@@ -44,7 +44,7 @@ const App = () => {
   const location = useLocation();
 
   // if this is the self-service app, don't display anything
-  if (!!['/self-service', '/work'].find(path => location.pathname.startsWith(path))) {
+  if (!!['/self-service', '/work', '/account'].find(path => location.pathname.startsWith(path))) {
     return <></>
   }
 
