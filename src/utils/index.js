@@ -37,27 +37,6 @@ export const getBusinessLoginUrl = () =>
   )}`;
 
 /**
- * Returns login URL using which the user should be redirected to self service
- * dashboard page after login.
- *
- * @returns {string}
- */
-export const getSelfServiceLoginUrl = () =>
-  `${config.URL.AUTH}?retUrl=${encodeURIComponent(
-    `${window.location.origin}/self-service`
-  )}&regSource=selfService&mode=login`;
-
-/**
- * Returns Sign up URL for self service app.
- *
- * @returns {string}
- */
-export const getSelfServiceSignupUrl = () =>
-  `${config.URL.AUTH}?retUrl=${encodeURIComponent(
-    `${window.location.origin}/self-service`
-  )}&regSource=selfService&mode=signUp`;
-
-/**
  * Logout user from Topcoder
  */
 export const logout = () => {
