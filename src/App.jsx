@@ -43,8 +43,15 @@ const App = () => {
   );
   const location = useLocation();
 
-  // if this is the self-service app, don't display anything
-  if (!!['/self-service', '/work', '/account'].find(path => location.pathname.startsWith(path))) {
+  // if this is the nextgen app, don't display anything
+  // TODO: create a method so that the app can programmatically
+  // hide itself instead of having to hard-code it here
+  if (!![
+    '/self-service', 
+    '/work', 
+    '/account',
+    '/academy',
+  ].find(path => location.pathname.startsWith(path))) {
     return <></>
   }
 
