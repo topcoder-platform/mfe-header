@@ -47,10 +47,10 @@ const App = () => {
   // TODO: create a method so that the app can programmatically
   // hide itself instead of having to hard-code it here
   if (!![
-    '/self-service', 
-    '/work', 
+    '/self-service',
+    '/work',
     '/account',
-    '/academy',
+    '/learn',
   ].find(path => location.pathname.startsWith(path))) {
     return <></>
   }
