@@ -69,7 +69,7 @@ const UserMenu = ({ profile, profileUrl }) => {
                       to={`${profileUrl}`}
                       onClick={closeMenu}
                     >
-                      {profileUrl.startsWith('/self-service') ? 'Account' : 'Profile'}
+                      Profile
                     </Link>
                   </li>
                   <li>
