@@ -9,8 +9,6 @@
   position: relative;
   z-index: 1;
   font-family: "Roboto", Arial, Helvetica, sans-serif;
-}
-.navbar {
   padding: 0 24px;
   background-color: #0C0C0C;
 }
