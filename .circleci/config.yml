@@ -73,9 +73,8 @@ workflows:
           filters:
             branches:
               only:
-                # - dev
-                # - feat/regsource
-                - qa
+                - dev
+                - feat/regsource
 
       # Production builds are exectuted only on tagged commits to the
       # master branch.
