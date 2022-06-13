@@ -6,6 +6,28 @@ This is a [single-spa](https://single-spa.js.org/) microapp which shows the main
 
 >**NOTE:** To successfully run this application, you must first run the `mfe-core` app. Please see its corresponding README for instructions.
 
+## Content
+
+Following are the sections defined in this document,
+
+- [Requirements](#requirements)
+- [Local Environment Setup](#local-environment-setup)
+  - [IDE](#ide)
+  - [NVM](#nvm)
+  - [Hosting](#hosting)
+  - [Terminal Configuration](#terminal-configuration)
+- [Git](#git)
+  - [Branching](#branching)
+  - [Commits](#commits)
+- [Configs](#configs)
+- [NPM Commands](#npm-commands)
+- [Local Deployment](#local-deployments)
+- [Deployment to Production](#deployment-to-production)
+- [Icons](#icons)
+  - [Custom SVGs](#custom-svgs)
+  - [Styling Icons](#styling-icons)
+
+
 ## Requirements
 
 - node - v10.22.1
