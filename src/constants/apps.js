@@ -1,6 +1,7 @@
 /**
  * Config for the All Apps menu.
  */
+import config from "../../config";
 import appDocumentationIcon from "../assets/images/learn.svg";
 import appTaasIcon from "../assets/images/integrations.svg";
 import appTaasAdminIcon from "../assets/images/taas-admin.png";
@@ -61,12 +62,12 @@ export const APP_CATEGORIES = [
     ],
   },
   {
-    category: "Self Service",
+    category: "Work",
     apps: [
       {
-        title: "Work",
+        title: "Self Service",
         icon: earnIcon,
-        path: "/self-service",
+        link: `${config.URL.PLATFORM_UI}/work/dashboard`,
         menu: [],
       },
     ],
