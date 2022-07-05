@@ -76,13 +76,29 @@ const AllAppsMenu = () => {
                         }
                         return (
                           <li className="all-apps-menu-app" key={app.path}>
-                            <Link
-                              to={app.path}
-                              onClick={(e) => closeMenu(e, app)}
-                            >
-                              <img src={app.icon} alt={`${app.title} Icon`} />
-                              <span>{app.title}</span>
-                            </Link>
+                            {!!app.link && (
+                              <a
+                                alt={app.title}
+                                href={app.link}
+                              >
+                                <img
+                                  alt={`${app.title} Icon`}
+                                  src={app.icon}
+                                />
+                                <span>
+                                  {app.title}
+                                </span>
+                              </a>
+                            )}
+                            {!app.link && (
+                              <Link
+                                to={app.path}
+                                onClick={(e) => closeMenu(e, app)}
+                              >
+                                <img src={app.icon} alt={`${app.title} Icon`} />
+                                <span>{app.title}</span>
+                              </Link>
+                            )}
                           </li>
                         );
                       })}
