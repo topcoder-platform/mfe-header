@@ -7,6 +7,7 @@ module.exports = {
     COMMUNITY_DOMAIN: "https://www.topcoder.com",
     PLATFORM_DOMAIN: "https://platform.topcoder.com",
     TAAS_APP: "https://platform.topcoder.com/taas/myteams",
+    PLATFORM_UI: "https://platform-ui.topcoder.com",
   },
   API: {
     V3: "https://api.topcoder.com/v3",
