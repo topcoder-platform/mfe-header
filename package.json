@@ -6,6 +6,7 @@
     "start-local-proxy": "sh start-local-proxy.sh",
     "dev": "cross-env APPMODE=development webpack-dev-server",
     "dev-https": "cross-env APPMODE=development webpack-dev-server --https",
+    "qa": "cross-env APPMODE=development webpack-dev-server",
     "build": "webpack --mode=${APPMODE:-development} --env.config=${APPENV:-dev}",
     "analyze": "webpack --mode=production --env.analyze=true",
     "lint": "eslint src --ext js",
