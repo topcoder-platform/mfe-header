@@ -4,16 +4,14 @@
  * Shows logged-in user with user menu with options like log-out.
  */
 import React, { useState, useCallback, Fragment } from "react";
-import { Link } from "@reach/router";
-import PropTypes from "prop-types";
 import Avatar from "../Avatar";
 import cn from "classnames";
 import OutsideClickHandler from "react-outside-click-handler";
-import { logout, getLogoutUrl } from "../../utils";
+import { logout, getLogoutUrl, getProfileUrl } from "../../utils";
 import "./styles.css";
 import { useMediaQuery } from "react-responsive";
 
-const UserMenu = ({ profile, profileUrl }) => {
+const UserMenu = ({ profile }) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
 
   const closeMenu = useCallback(() => {
@@ -65,12 +63,9 @@ const UserMenu = ({ profile, profileUrl }) => {
               <div className="user-menu-popover-content">
                 <ul className="user-menu-list">
                   <li>
-                    <Link
-                      to={`${profileUrl}`}
-                      onClick={closeMenu}
-                    >
+                    <a href={getProfileUrl(profile.handle)} onClick={closeMenu}>
                       Profile
-                    </Link>
+                    </a>
                   </li>
                   <li>
                     <a href={getLogoutUrl()} onClick={onLogoutClick}>
@@ -85,14 +80,6 @@ const UserMenu = ({ profile, profileUrl }) => {
       </div>
     </OutsideClickHandler>
   );
-};
-
-UserMenu.defaultProps = {
-  profileUrl: '/profile',
-};
-
-UserMenu.propTypes = {
-  profileUrl: PropTypes.string,
 };
 
 export default UserMenu;
