@@ -19,27 +19,6 @@ export const APP_CATEGORIES = [
     category: "Manage",
     apps: [
       {
-        title: "TaaS",
-        icon: appTaasIcon,
-        path: "/taas",
-        menu: [
-          {
-            title: "My Teams",
-            path: "/taas/myteams",
-            icon: myteamsIcon,
-            activeIcon: myteamsGreenIcon,
-            isExact: false,
-          },
-          {
-            title: "Create New Team",
-            path: "/taas/createnewteam",
-            icon: createTeamIcon,
-            activeIcon: createTeamGreenIcon,
-            isExact: false,
-          },
-        ],
-      },
-      {
         title: "TaaS Admin",
         icon: appTaasAdminIcon,
         path: "/taas-admin",
