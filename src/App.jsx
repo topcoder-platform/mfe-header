@@ -63,7 +63,6 @@ const App = () => {
         <NavBar
           default
           noThrow
-          profileUrl={`/profile/${_.get(auth, "profile.handle", "")}`}
           hideSwitchTools={isNavigationDisabled}
           path="/*"
         />

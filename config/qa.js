@@ -8,6 +8,7 @@ module.exports = {
     PLATFORM_DOMAIN: "https://platform.topcoder-qa.com",
     TAAS_APP: "https://platform.topcoder-qa.com/taas/myteams",
     PLATFORM_UI: "https://platform-ui.topcoder-qa.com",
+    PLATFORM_PROFILES_URL: "https://profiles.topcoder.com",
   },
   API: {
     V3: "https://api.topcoder-qa.com/v3",

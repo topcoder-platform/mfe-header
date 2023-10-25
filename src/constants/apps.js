@@ -63,18 +63,6 @@ export const APP_CATEGORIES = [
     ],
   },
   {
-    category: "Profile",
-    hidden: true,
-    apps: [
-      {
-        title: "Profile App",
-        path: "/profile/",
-        isExact: false,
-        menu: [],
-      },
-    ],
-  },
-  {
     category: "Onboard",
     hidden: true,
     apps: [
