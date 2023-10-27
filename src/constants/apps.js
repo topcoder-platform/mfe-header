@@ -19,13 +19,6 @@ export const APP_CATEGORIES = [
     category: "Manage",
     apps: [
       {
-        title: "TaaS Admin",
-        icon: appTaasAdminIcon,
-        path: "/taas-admin",
-        menu: [],
-        roles: ["bookingmanager", "administrator"],
-      },
-      {
         title: "Documentation",
         icon: appDocumentationIcon,
         path: "/model",
@@ -41,35 +34,12 @@ export const APP_CATEGORIES = [
     ],
   },
   {
-    category: "Work",
-    apps: [
-      {
-        title: "Self Service",
-        icon: earnIcon,
-        link: `${config.URL.PLATFORM_UI}/work/dashboard`,
-        menu: [],
-      },
-    ],
-  },
-  {
     category: "Do",
     apps: [
       {
         title: "Earn",
         icon: earnIcon,
         path: "/earn",
-        menu: [],
-      },
-    ],
-  },
-  {
-    category: "Onboard",
-    hidden: true,
-    apps: [
-      {
-        title: "Member Onboarding",
-        path: "/onboard",
-        isExact: false,
         menu: [],
       },
     ],
