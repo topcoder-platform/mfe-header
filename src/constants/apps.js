@@ -19,34 +19,6 @@ export const APP_CATEGORIES = [
     category: "Manage",
     apps: [
       {
-        title: "TaaS",
-        icon: appTaasIcon,
-        path: "/taas",
-        menu: [
-          {
-            title: "My Teams",
-            path: "/taas/myteams",
-            icon: myteamsIcon,
-            activeIcon: myteamsGreenIcon,
-            isExact: false,
-          },
-          {
-            title: "Create New Team",
-            path: "/taas/createnewteam",
-            icon: createTeamIcon,
-            activeIcon: createTeamGreenIcon,
-            isExact: false,
-          },
-        ],
-      },
-      {
-        title: "TaaS Admin",
-        icon: appTaasAdminIcon,
-        path: "/taas-admin",
-        menu: [],
-        roles: ["bookingmanager", "administrator"],
-      },
-      {
         title: "Documentation",
         icon: appDocumentationIcon,
         path: "/model",
@@ -62,47 +34,12 @@ export const APP_CATEGORIES = [
     ],
   },
   {
-    category: "Work",
-    apps: [
-      {
-        title: "Self Service",
-        icon: earnIcon,
-        link: `${config.URL.PLATFORM_UI}/work/dashboard`,
-        menu: [],
-      },
-    ],
-  },
-  {
     category: "Do",
     apps: [
       {
         title: "Earn",
         icon: earnIcon,
         path: "/earn",
-        menu: [],
-      },
-    ],
-  },
-  {
-    category: "Profile",
-    hidden: true,
-    apps: [
-      {
-        title: "Profile App",
-        path: "/profile/",
-        isExact: false,
-        menu: [],
-      },
-    ],
-  },
-  {
-    category: "Onboard",
-    hidden: true,
-    apps: [
-      {
-        title: "Member Onboarding",
-        path: "/onboard",
-        isExact: false,
         menu: [],
       },
     ],

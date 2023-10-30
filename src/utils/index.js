@@ -12,6 +12,12 @@ export const getLogoutUrl = () =>
   )}`;
 
 /**
+ * Generate Profiles URL
+ */
+export const getProfileUrl = (handle) =>
+  `${config.URL.PLATFORM_PROFILES_URL}/${handle}`;
+
+/**
  * Generate Login URL
  */
 export const getLoginUrl = () => {
